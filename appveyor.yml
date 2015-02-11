@@ -1,0 +1,37 @@
+# Fix line endings in Windows. (runs before repo cloning)
+init:
+  - git config --global core.autocrlf input
+
+# Test against these versions of Node.js.
+environment:
+  matrix:
+    # node.js
+    - nodejs_version: "0.10"
+    - nodejs_version: "0.12"
+    # io.js
+    - nodejs_version: "1.0"
+
+# Allow failing jobs for bleeding-edge Node.js versions.
+matrix:
+  allow_failures:
+    - nodejs_version: "1.0"
+
+# Install scripts. (runs after repo cloning)
+install:
+  - ps: Update-NodeJsInstallation (Get-NodeJsLatestBuild $env:nodejs_version)
+  - cmd: npm update -g npm
+  - npm install
+
+# Post-install test scripts.
+test_script:
+  # Output useful info for debugging.
+  - node --version
+  - npm --version
+  # Run tests
+  - npm test
+
+# Don't actually build.
+build: off
+
+# Set build version format here instead of in the admin panel.
+version: "{build}"
