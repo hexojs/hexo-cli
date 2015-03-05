@@ -1,6 +1,6 @@
 {
   "name": "hexo-cli",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Command line interface for Hexo",
   "main": "lib/index",
   "bin": {
