@@ -1,4 +1,5 @@
 title: {{ title }}
 date: {{ date }}
-tags:
+tags:{% for tag in tags %}
+  - {{tag}}{% endfor %}
 ---
