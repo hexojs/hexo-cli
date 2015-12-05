@@ -1,6 +1,6 @@
 'use strict';
 
-var should = require('chai').should();
+var should = require('chai').should(); // eslint-disable-line
 var fs = require('hexo-fs');
 var pathFn = require('path');
 
