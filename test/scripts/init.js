@@ -56,6 +56,12 @@ describe('init', function() {
     });
   }
 
+  function withoutSpawn(fn) {
+    return initModule.__with__('inheritSpawn', function() {
+      return Promise.reject('spawn is not available');
+    })(fn);
+  }
+
   before(function() {
     return fs.listDir(assetDir).then(function(files) {
       assets = files;
@@ -67,38 +73,32 @@ describe('init', function() {
   });
 
   it('current path', function() {
-    return init({_: []}).then(function() {
-      return check(baseDir);
+    return withoutSpawn(function() {
+      return init({_: []}).then(function() {
+        return check(baseDir);
+      });
     });
   });
 
   it('relative path', function() {
-    return init({_: ['test']}).then(function() {
-      return check(pathFn.join(baseDir, 'test'));
+    return withoutSpawn(function() {
+      return init({_: ['test']}).then(function() {
+        return check(pathFn.join(baseDir, 'test'));
+      });
     });
   });
 
   it('absolute path', function() {
     var path = pathFn.join(baseDir, 'test');
 
-    return init({_: [path]}).then(function() {
-      return check(path);
-    });
-  });
-
-  it('fallback to copy directly', function() {
-    return initModule.__with__('spawn', function() {
-      return Promise.reject(new Error('Git is not allowed'));
-    })(function() {
-
-      var init = initModule.bind({
-        base_dir: baseDir,
-        log: new Logger({silent: true})
-      });
-
-      return init({_: []}).then(function() {
-        return check(baseDir);
+    return withoutSpawn(function() {
+      return init({_: [path]}).then(function() {
+        return check(path);
       });
     });
   });
+
+  it('git clone');
+
+  it('npm install');
 });
