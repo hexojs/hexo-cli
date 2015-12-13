@@ -57,7 +57,7 @@ describe('init', function() {
   }
 
   function withoutSpawn(fn) {
-    return initModule.__with__('inheritSpawn', function() {
+    return initModule.__with__('spawn', function() {
       return Promise.reject('spawn is not available');
     })(fn);
   }
