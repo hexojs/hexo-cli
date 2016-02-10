@@ -30,7 +30,7 @@
   "license": "MIT",
   "dependencies": {
     "abbrev": "^1.0.7",
-    "bluebird": "^3.0.6",
+    "bluebird": "^3.2.2",
     "chalk": "^1.1.1",
     "hexo-fs": "^0.1.5",
     "hexo-util": "^0.5.1",
@@ -38,16 +38,16 @@
     "tildify": "^1.1.2"
   },
   "devDependencies": {
-    "chai": "^3.4.1",
-    "chai-as-promised": "^5.1.0",
+    "chai": "^3.5.0",
+    "chai-as-promised": "^5.2.0",
     "eslint": "^1.10.3",
     "eslint-config-hexo": "^1.0.2",
-    "hexo-renderer-marked": "^0.2.5",
-    "istanbul": "^0.4.1",
-    "jscs": "^2.6.0",
+    "hexo-renderer-marked": "^0.2.9",
+    "istanbul": "^0.4.2",
+    "jscs": "^2.9.0",
     "jscs-preset-hexo": "^1.0.1",
-    "mocha": "^2.3.4",
+    "mocha": "^2.4.5",
     "rewire": "^2.5.1",
-    "sinon": "^1.17.2"
+    "sinon": "^1.17.3"
   }
 }
