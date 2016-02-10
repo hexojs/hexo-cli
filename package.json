@@ -33,6 +33,7 @@
     "bluebird": "^3.2.2",
     "chalk": "^1.1.1",
     "hexo-fs": "^0.1.5",
+    "hexo-log": "^0.1.1",
     "hexo-util": "^0.5.1",
     "minimist": "^1.2.0",
     "tildify": "^1.1.2"
