@@ -6,16 +6,14 @@ var fs = require('hexo-fs');
 var Promise = require('bluebird');
 var util = require('hexo-util');
 var rewire = require('rewire');
-var Logger = require('../../lib/logger');
+var Context = require('../../lib/context');
 var assetDir = pathFn.join(__dirname, '../../assets');
 
 describe('init', function() {
   var baseDir = pathFn.join(__dirname, 'init_test');
   var initModule = rewire('../../lib/console/init');
-  var init = initModule.bind({
-    base_dir: baseDir,
-    log: new Logger({silent: true})
-  });
+  var hexo = new Context(baseDir, { silent: true });
+  var init = initModule.bind(hexo);
   var assets = [];
 
   function rmdir(path) {
