@@ -35,8 +35,8 @@
     "hexo-fs": "^0.1.5",
     "hexo-log": "^0.1.1",
     "hexo-util": "^0.5.1",
-    "lodash": "^4.3.0",
     "minimist": "^1.2.0",
+    "object-assign": "^4.0.1",
     "tildify": "^1.1.2"
   },
   "devDependencies": {
