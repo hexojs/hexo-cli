@@ -2,7 +2,7 @@
   "name": "hexo-cli",
   "version": "0.2.1",
   "description": "Command line interface for Hexo",
-  "main": "lib/index",
+  "main": "lib/hexo",
   "bin": {
     "hexo": "./bin/hexo"
   },

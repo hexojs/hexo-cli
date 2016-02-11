@@ -2,6 +2,4 @@
 
 'use strict';
 
-var minimist = require('minimist');
-
-require('../lib/hexo')(process.cwd(), minimist(process.argv.slice(2)));
+require('../lib/hexo')();
