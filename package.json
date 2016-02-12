@@ -30,11 +30,11 @@
   "license": "MIT",
   "dependencies": {
     "abbrev": "^1.0.7",
-    "bluebird": "^3.2.2",
+    "bluebird": "^3.3.0",
     "chalk": "^1.1.1",
     "hexo-fs": "^0.1.5",
     "hexo-log": "^0.1.1",
-    "hexo-util": "^0.5.1",
+    "hexo-util": "^0.5.2",
     "minimist": "^1.2.0",
     "object-assign": "^4.0.1",
     "tildify": "^1.1.2"
