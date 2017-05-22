@@ -37,7 +37,8 @@
     "hexo-util": "^0.6.0",
     "minimist": "^1.2.0",
     "object-assign": "^4.1.0",
-    "tildify": "^1.2.0"
+    "tildify": "^1.2.0",
+    "command-exists": "^1.2.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
