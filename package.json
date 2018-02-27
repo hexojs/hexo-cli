@@ -41,6 +41,7 @@
     "hexo-util": "^0.6.0",
     "minimist": "^1.2.0",
     "object-assign": "^4.1.0",
+    "resolve": "^1.5.0",
     "tildify": "^1.2.0"
   },
   "devDependencies": {
