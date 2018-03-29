@@ -54,5 +54,8 @@
     "proxyquire": "^1.7.9",
     "rewire": "^2.5.1",
     "sinon": "^1.17.4"
+  },
+  "engines": {
+    "node": ">=6.9.0"
   }
 }
