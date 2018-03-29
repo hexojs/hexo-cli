@@ -56,7 +56,7 @@ describe('init', function() {
 
   function withoutSpawn(fn) {
     return initModule.__with__('spawn', function() {
-      return Promise.reject('spawn is not available');
+      return Promise.reject(new Error('spawn is not available'));
     })(fn);
   }
 
