@@ -142,7 +142,7 @@ describe('help', function() {
   });
 
   it('show version info', function() {
-    sinon.stub(hexo, 'call', function() {
+    sinon.stub(hexo, 'call').callsFake(() => {
       return Promise.resolve();
     });
 
