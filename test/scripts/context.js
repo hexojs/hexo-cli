@@ -21,7 +21,7 @@ describe('context', function() {
         result.should.eql(args);
         spy.calledOnce.should.be.true;
         spy.lastCall.args[0].should.eql(args);
-        spy.reset();
+        spy.resetHistory();
       });
     });
 
@@ -42,7 +42,7 @@ describe('context', function() {
         result.should.eql(args);
         spy.calledOnce.should.be.true;
         spy.lastCall.args[0].should.eql(args);
-        spy.reset();
+        spy.resetHistory();
         done();
       });
     });
@@ -52,7 +52,7 @@ describe('context', function() {
         if (err) return done(err);
 
         spy.calledOnce.should.be.true;
-        spy.reset();
+        spy.resetHistory();
         done();
       });
     });
