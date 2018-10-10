@@ -2,15 +2,13 @@
 
 var should = require('chai').should(); // eslint-disable-line
 var fs = require('fs');
-var os = require('os');
 var path = require('path');
 var rewire = require('rewire');
 var sinon = require('sinon');
 var Context = require('../../lib/context');
 
 describe('theme', function() {
-  var context;
-  var themeModule;
+  var context, themeModule;
 
   beforeEach(function() {
     context = new Context();
@@ -34,12 +32,13 @@ describe('theme', function() {
     var writeFileSpy = sinon.spy();
     var fsMock = {
       mkdirSync: mkdirSpy,
-      writeFileSync: writeFileSpy,
+      writeFileSync: writeFileSpy
     };
 
     return themeModule
-      .__with__({ fs: Object.assign(fs, fsMock) })
-      (function() {
+      .__with__({
+        fs: Object.assign(fs, fsMock)
+      })(function() {
         return themeModule.call(context, params);
       })
       .then(function() {
@@ -48,7 +47,7 @@ describe('theme', function() {
           [path.join(context.base_dir, 'my-hexo-theme/languages')],
           [path.join(context.base_dir, 'my-hexo-theme/layout')],
           [path.join(context.base_dir, 'my-hexo-theme/scripts')],
-          [path.join(context.base_dir, 'my-hexo-theme/source')],
+          [path.join(context.base_dir, 'my-hexo-theme/source')]
         ]);
 
         writeFileSpy.args.should.eql([
@@ -56,7 +55,7 @@ describe('theme', function() {
           [path.join(context.base_dir, 'my-hexo-theme/languages/.gitkeep'), ''],
           [path.join(context.base_dir, 'my-hexo-theme/layout/.gitkeep'), ''],
           [path.join(context.base_dir, 'my-hexo-theme/scripts/.gitkeep'), ''],
-          [path.join(context.base_dir, 'my-hexo-theme/source/.gitkeep'), ''],
+          [path.join(context.base_dir, 'my-hexo-theme/source/.gitkeep'), '']
         ]);
       });
   });
