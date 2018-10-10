@@ -10,5 +10,6 @@ describe('hexo-cli', function() {
   require('./scripts/hexo');
   require('./scripts/init');
   require('./scripts/help');
+  require('./scripts/theme');
   require('./scripts/version');
 });
