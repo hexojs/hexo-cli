@@ -50,7 +50,7 @@
     "hexo-renderer-marked": "^0.3.2",
     "istanbul": "^0.4.3",
     "mocha": "^5.2.0",
-    "proxyquire": "^1.7.9",
+    "proxyquire": "^2.1.0",
     "rewire": "^4.0.1",
     "sinon": "^6.3.5"
   },
