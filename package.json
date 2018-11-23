@@ -47,7 +47,7 @@
     "chai-as-promised": "^7.1.1",
     "eslint": "^5.9.0",
     "eslint-config-hexo": "^3.0.0",
-    "hexo-renderer-marked": "^0.2.10",
+    "hexo-renderer-marked": "^0.3.2",
     "istanbul": "^0.4.3",
     "mocha": "^5.2.0",
     "proxyquire": "^1.7.9",
