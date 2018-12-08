@@ -12,3 +12,4 @@ appveyor.yml
 .gitmodules
 .jscsrc
 .npmignore
+.eslintrc.json
