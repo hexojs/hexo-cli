@@ -6,3 +6,10 @@ coverage/
 .idea/
 appveyor.yml
 !assets/.gitignore
+.editorconfig
+.eslintignore
+.eslintrc
+.gitmodules
+.jscsrc
+.npmignore
+.eslintrc.json
