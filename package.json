@@ -36,28 +36,29 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "abbrev": "^1.0.7",
-    "bluebird": "^3.4.0",
-    "chalk": "^2.4.1",
-    "command-exists": "^1.2.0",
-    "hexo-fs": "^1.0.0",
+    "abbrev": "^1.1.1",
+    "acorn": "^6.1.1",
+    "bluebird": "^3.5.3",
+    "chalk": "^2.4.2",
+    "command-exists": "^1.2.8",
+    "hexo-fs": "^1.0.2",
     "hexo-log": "^0.2.0",
-    "hexo-util": "^0.6.0",
+    "hexo-util": "^0.6.3",
     "minimist": "^1.2.0",
-    "resolve": "^1.5.0",
+    "resolve": "^1.10.0",
     "tildify": "^1.2.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
-    "eslint": "^5.9.0",
+    "eslint": "^5.15.1",
     "eslint-config-hexo": "^3.0.0",
     "hexo-renderer-marked": "^0.3.2",
-    "istanbul": "^0.4.3",
-    "mocha": "^6.0.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^6.0.2",
     "proxyquire": "^2.1.0",
     "rewire": "^4.0.1",
-    "sinon": "^7.1.1"
+    "sinon": "^7.2.7"
   },
   "engines": {
     "node": ">=6.9.0"
