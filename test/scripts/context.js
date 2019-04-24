@@ -1,21 +1,21 @@
 'use strict';
 
-var should = require('chai').should(); // eslint-disable-line
-var sinon = require('sinon');
+const should = require('chai').should(); // eslint-disable-line
+const sinon = require('sinon');
 
 describe('context', function() {
-  var Context = require('../../lib/context');
+  const Context = require('../../lib/context');
 
   describe('call', function() {
-    var hexo = new Context();
-    var spy = sinon.spy(function(args) {
+    const hexo = new Context();
+    const spy = sinon.spy(function(args) {
       return args;
     });
 
     hexo.extend.console.register('test', spy);
 
     it('success', function() {
-      var args = {foo: 'bar'};
+      const args = {foo: 'bar'};
 
       return hexo.call('test', args).then(function(result) {
         result.should.eql(args);
@@ -26,7 +26,7 @@ describe('context', function() {
     });
 
     it('console not registered', function() {
-      var hexo = new Context();
+      const hexo = new Context();
 
       return hexo.call('wtf').catch(function(err) {
         err.should.have.property('message', 'Console `wtf` has not been registered yet!');
@@ -34,7 +34,7 @@ describe('context', function() {
     });
 
     it('with callback', function(done) {
-      var args = {foo: 'bar'};
+      const args = {foo: 'bar'};
 
       hexo.call('test', args, function(err, result) {
         if (err) return done(err);
@@ -59,7 +59,7 @@ describe('context', function() {
   });
 
   describe('exit', function() {
-    var hexo, fatal;
+    let hexo, fatal;
 
     beforeEach(function() {
       hexo = new Context();

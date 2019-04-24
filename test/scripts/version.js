@@ -1,15 +1,15 @@
 'use strict';
 
-var should = require('chai').should(); // eslint-disable-line
-var Context = require('../../lib/context');
-var sinon = require('sinon');
-var os = require('os');
-var format = require('util').format;
-var cliVersion = require('../../package.json').version;
-var rewire = require('rewire');
+const should = require('chai').should(); // eslint-disable-line
+const Context = require('../../lib/context');
+const sinon = require('sinon');
+const os = require('os');
+const format = require('util').format;
+const cliVersion = require('../../package.json').version;
+const rewire = require('rewire');
 
 function getConsoleLog(spy) {
-  var args = spy.args;
+  const args = spy.args;
 
   return args.map(function(arr) {
     return format.apply(null, arr);
@@ -17,11 +17,11 @@ function getConsoleLog(spy) {
 }
 
 describe('version', function() {
-  var versionModule = rewire('../../lib/console/version');
-  var hexo = new Context();
+  const versionModule = rewire('../../lib/console/version');
+  const hexo = new Context();
 
   it('show version info', function() {
-    var spy = sinon.spy();
+    const spy = sinon.spy();
 
     return versionModule.__with__({
       console: {
@@ -30,8 +30,8 @@ describe('version', function() {
     })(function() {
       return versionModule.call(hexo, {_: []});
     }).then(function() {
-      var output = getConsoleLog(spy);
-      var expected = [
+      const output = getConsoleLog(spy);
+      const expected = [
         'hexo-cli: ' + cliVersion,
         'os: ' + os.type() + ' ' + os.release() + ' ' + os.platform() + ' ' + os.arch()
       ];
@@ -45,7 +45,7 @@ describe('version', function() {
   });
 
   it('show hexo version if available', function() {
-    var spy = sinon.spy();
+    const spy = sinon.spy();
 
     hexo.version = '3.2.1';
 
@@ -56,7 +56,7 @@ describe('version', function() {
     })(function() {
       return versionModule.call(hexo, {_: []});
     }).then(function() {
-      var output = getConsoleLog(spy);
+      const output = getConsoleLog(spy);
 
       output.should.contain('hexo: ' + hexo.version);
     }).finally(function() {
