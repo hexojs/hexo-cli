@@ -1,12 +1,12 @@
 'use strict';
 
-var should = require('chai').should(); // eslint-disable-line
-var fs = require('hexo-fs');
-var pathFn = require('path');
+const should = require('chai').should(); // eslint-disable-line
+const fs = require('hexo-fs');
+const pathFn = require('path');
 
 describe('Find package', function() {
-  var findPkg = require('../../lib/find_pkg');
-  var baseDir = pathFn.join(__dirname, 'find_pkg_test');
+  const findPkg = require('../../lib/find_pkg');
+  const baseDir = pathFn.join(__dirname, 'find_pkg_test');
 
   after(function() {
     return fs.rmdir(baseDir);
@@ -19,7 +19,7 @@ describe('Find package', function() {
   });
 
   it('found', function() {
-    var pkgPath = pathFn.join(baseDir, 'package.json');
+    const pkgPath = pathFn.join(baseDir, 'package.json');
 
     return fs.writeFile(pkgPath, '{"hexo": {}}').then(function() {
       return findPkg(baseDir, {});
@@ -30,7 +30,7 @@ describe('Find package', function() {
   });
 
   it('found in parent directory', function() {
-    var pkgPath = pathFn.join(baseDir, '../package.json');
+    const pkgPath = pathFn.join(baseDir, '../package.json');
 
     return fs.writeFile(pkgPath, '{"hexo": {}}').then(function() {
       return findPkg(baseDir, {});
@@ -41,7 +41,7 @@ describe('Find package', function() {
   });
 
   it('found but don\'t have hexo data', function() {
-    var pkgPath = pathFn.join(baseDir, 'package.json');
+    const pkgPath = pathFn.join(baseDir, 'package.json');
 
     return fs.writeFile(pkgPath, '{"name": "hexo"}').then(function() {
       return findPkg(baseDir, {});
@@ -52,7 +52,7 @@ describe('Find package', function() {
   });
 
   it('relative cwd', function() {
-    var pkgPath = pathFn.join(baseDir, 'test', 'package.json');
+    const pkgPath = pathFn.join(baseDir, 'test', 'package.json');
 
     return fs.writeFile(pkgPath, '{"hexo": {}}').then(function() {
       return findPkg(baseDir, {cwd: 'test'});
@@ -69,8 +69,8 @@ describe('Find package', function() {
   });
 
   it('absolute cwd', function() {
-    var pkgPath = pathFn.join(baseDir, 'test', 'package.json');
-    var cwd = pathFn.dirname(pkgPath);
+    const pkgPath = pathFn.join(baseDir, 'test', 'package.json');
+    const cwd = pathFn.dirname(pkgPath);
 
     return fs.writeFile(pkgPath, '{"hexo": {}}').then(function() {
       return findPkg(baseDir, {cwd: cwd});

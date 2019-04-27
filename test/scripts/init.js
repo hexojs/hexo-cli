@@ -1,20 +1,20 @@
 'use strict';
 
-var should = require('chai').should(); // eslint-disable-line
-var pathFn = require('path');
-var fs = require('hexo-fs');
-var Promise = require('bluebird');
-var util = require('hexo-util');
-var rewire = require('rewire');
-var Context = require('../../lib/context');
-var assetDir = pathFn.join(__dirname, '../../assets');
+const should = require('chai').should(); // eslint-disable-line
+const pathFn = require('path');
+const fs = require('hexo-fs');
+const Promise = require('bluebird');
+const util = require('hexo-util');
+const rewire = require('rewire');
+const Context = require('../../lib/context');
+const assetDir = pathFn.join(__dirname, '../../assets');
 
 describe('init', function() {
-  var baseDir = pathFn.join(__dirname, 'init_test');
-  var initModule = rewire('../../lib/console/init');
-  var hexo = new Context(baseDir, { silent: true });
-  var init = initModule.bind(hexo);
-  var assets = [];
+  const baseDir = pathFn.join(__dirname, 'init_test');
+  const initModule = rewire('../../lib/console/init');
+  const hexo = new Context(baseDir, { silent: true });
+  const init = initModule.bind(hexo);
+  let assets = [];
 
   function rmdir(path) {
     return fs.rmdir(path).catch(function(err) {
@@ -32,8 +32,8 @@ describe('init', function() {
   }
 
   function compareFile(a, b) {
-    var streamA = new util.HashStream();
-    var streamB = new util.HashStream();
+    const streamA = new util.HashStream();
+    const streamB = new util.HashStream();
 
     return Promise.all([
       pipeStream(fs.createReadStream(a), streamA),
@@ -87,7 +87,7 @@ describe('init', function() {
   });
 
   it('absolute path', function() {
-    var path = pathFn.join(baseDir, 'test');
+    const path = pathFn.join(baseDir, 'test');
 
     return withoutSpawn(function() {
       return init({_: [path]}).then(function() {
