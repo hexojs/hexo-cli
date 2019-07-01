@@ -38,27 +38,27 @@
   "dependencies": {
     "abbrev": "^1.1.1",
     "acorn": "^6.1.1",
-    "bluebird": "^3.5.3",
+    "bluebird": "^3.5.5",
     "chalk": "^2.4.2",
     "command-exists": "^1.2.8",
     "hexo-fs": "^1.0.2",
     "hexo-log": "^0.2.0",
     "hexo-util": "^0.6.3",
     "minimist": "^1.2.0",
-    "resolve": "^1.10.0",
+    "resolve": "^1.11.0",
     "tildify": "^2.0.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
-    "eslint": "^5.15.1",
+    "eslint": "^5.16.0",
     "eslint-config-hexo": "^3.0.0",
     "hexo-renderer-marked": "^1.0.1",
     "istanbul": "^0.4.5",
-    "mocha": "^6.0.2",
+    "mocha": "^6.1.4",
     "proxyquire": "^2.1.0",
     "rewire": "^4.0.1",
-    "sinon": "^7.2.7"
+    "sinon": "^7.3.2"
   },
   "engines": {
     "node": ">=6.9.0"
