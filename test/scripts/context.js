@@ -1,23 +1,21 @@
 'use strict';
 
-const should = require('chai').should(); // eslint-disable-line
+require('chai').should();
 const sinon = require('sinon');
 
-describe('context', function() {
+describe('context', () => {
   const Context = require('../../lib/context');
 
-  describe('call', function() {
+  describe('call', () => {
     const hexo = new Context();
-    const spy = sinon.spy(function(args) {
-      return args;
-    });
+    const spy = sinon.spy(args => args);
 
     hexo.extend.console.register('test', spy);
 
-    it('success', function() {
+    it('success', () => {
       const args = {foo: 'bar'};
 
-      return hexo.call('test', args).then(function(result) {
+      return hexo.call('test', args).then(result => {
         result.should.eql(args);
         spy.calledOnce.should.be.true;
         spy.lastCall.args[0].should.eql(args);
@@ -25,18 +23,18 @@ describe('context', function() {
       });
     });
 
-    it('console not registered', function() {
+    it('console not registered', () => {
       const hexo = new Context();
 
-      return hexo.call('wtf').catch(function(err) {
+      return hexo.call('wtf').catch(err => {
         err.should.have.property('message', 'Console `wtf` has not been registered yet!');
       });
     });
 
-    it('with callback', function(done) {
+    it('with callback', done => {
       const args = {foo: 'bar'};
 
-      hexo.call('test', args, function(err, result) {
+      hexo.call('test', args, (err, result) => {
         if (err) return done(err);
 
         result.should.eql(args);
@@ -47,8 +45,8 @@ describe('context', function() {
       });
     });
 
-    it('with callback but no args', function(done) {
-      hexo.call('test', function(err) {
+    it('with callback but no args', done => {
+      hexo.call('test', err => {
         if (err) return done(err);
 
         spy.calledOnce.should.be.true;
@@ -58,20 +56,20 @@ describe('context', function() {
     });
   });
 
-  describe('exit', function() {
+  describe('exit', () => {
     let hexo, fatal;
 
-    beforeEach(function() {
+    beforeEach(() => {
       hexo = new Context();
       fatal = hexo.log.fatal = sinon.spy();
     });
 
-    it('no error', function() {
+    it('no error', () => {
       hexo.exit();
       fatal.called.should.be.false;
     });
 
-    it('with error', function() {
+    it('with error', () => {
       hexo.exit(new Error('error test'));
       fatal.calledOnce.should.be.true;
     });
