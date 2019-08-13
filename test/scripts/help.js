@@ -1,12 +1,12 @@
 'use strict';
 
-const should = require('chai').should(); // eslint-disable-line
+require('chai').should();
 const Context = require('../../lib/context');
 const sinon = require('sinon');
 const Promise = require('bluebird');
 const fs = require('hexo-fs');
 const pathFn = require('path');
-const format = require('util').format;
+const { format } = require('util');
 const rewire = require('rewire');
 
 function getConsoleLog(spy) {
@@ -98,7 +98,7 @@ describe('help', () => {
       console: {
         log: spy
       }
-    })(() => helpModule.call(hexo, {_: ['init']})).then(function() {
+    })(() => helpModule.call(hexo, {_: ['init']})).then(() => {
       const output = getConsoleLog(spy);
 
       hexo.extend.console.get('init').options.arguments.forEach(arg => {

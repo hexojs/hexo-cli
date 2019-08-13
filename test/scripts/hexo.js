@@ -1,6 +1,6 @@
 'use strict';
 
-const should = require('chai').should(); // eslint-disable-line
+require('chai').should();
 const sinon = require('sinon');
 const proxyquire = require('proxyquire');
 
@@ -10,7 +10,7 @@ describe('hexo', () => {
   it('run help if no specified command', () => {
     const spy = sinon.spy();
     const hexo = proxyquire('../../lib/hexo', {
-      './console': function(ctx) {
+      './console'(ctx) {
         ctx.extend.console.register('help', spy);
       }
     });
@@ -23,7 +23,7 @@ describe('hexo', () => {
   it('run specified command', () => {
     const spy = sinon.spy();
     const hexo = proxyquire('../../lib/hexo', {
-      './console': function(ctx) {
+      './console'(ctx) {
         ctx.extend.console.register('test', spy);
       }
     });
@@ -36,7 +36,7 @@ describe('hexo', () => {
   it('run help if specified command not found', () => {
     const spy = sinon.spy();
     const hexo = proxyquire('../../lib/hexo', {
-      './console': function(ctx) {
+      './console'(ctx) {
         ctx.extend.console.register('help', spy);
       }
     });

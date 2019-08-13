@@ -1,10 +1,10 @@
 'use strict';
 
-const should = require('chai').should(); // eslint-disable-line
+require('chai').should();
 const Context = require('../../lib/context');
 const sinon = require('sinon');
 const os = require('os');
-const format = require('util').format;
+const { format } = require('util');
 const cliVersion = require('../../package.json').version;
 const rewire = require('rewire');
 
