@@ -4,7 +4,7 @@ const chai = require('chai');
 
 chai.use(require('chai-as-promised'));
 
-describe('hexo-cli', function() {
+describe('hexo-cli', () => {
   require('./scripts/find_pkg');
   require('./scripts/context');
   require('./scripts/hexo');

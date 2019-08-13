@@ -9,7 +9,7 @@ const rewire = require('rewire');
 const Context = require('../../lib/context');
 const assetDir = pathFn.join(__dirname, '../../assets');
 
-describe('init', function() {
+describe('init', () => {
   const baseDir = pathFn.join(__dirname, 'init_test');
   const initModule = rewire('../../lib/console/init');
   const hexo = new Context(baseDir, { silent: true });
@@ -17,14 +17,14 @@ describe('init', function() {
   let assets = [];
 
   function rmdir(path) {
-    return fs.rmdir(path).catch(function(err) {
+    return fs.rmdir(path).catch(err => {
       if (err.cause && err.cause.code === 'ENOENT') return;
       throw err;
     });
   }
 
   function pipeStream(rs, ws) {
-    return new Promise(function(resolve, reject) {
+    return new Promise((resolve, reject) => {
       rs.pipe(ws)
         .on('error', reject)
         .on('finish', resolve);
@@ -38,62 +38,34 @@ describe('init', function() {
     return Promise.all([
       pipeStream(fs.createReadStream(a), streamA),
       pipeStream(fs.createReadStream(b), streamB)
-    ]).then(function() {
-      return streamA.read().equals(streamB.read());
-    });
+    ]).then(() => streamA.read().equals(streamB.read()));
   }
 
   function check(path) {
-    return Promise.each(assets, function(item) {
-      return compareFile(
-        pathFn.join(assetDir, item),
-        pathFn.join(path, item)
-      ).should.eventually.be.true;
-    }).finally(function() {
-      return rmdir(path);
-    });
+    return Promise.each(assets, item => compareFile(
+      pathFn.join(assetDir, item),
+      pathFn.join(path, item)
+    ).should.eventually.be.true).finally(() => rmdir(path));
   }
 
   function withoutSpawn(fn) {
-    return initModule.__with__('spawn', function() {
-      return Promise.reject(new Error('spawn is not available'));
-    })(fn);
+    return initModule.__with__('spawn', () => Promise.reject(new Error('spawn is not available')))(fn);
   }
 
-  before(function() {
-    return fs.listDir(assetDir).then(function(files) {
-      assets = files;
-    });
-  });
+  before(() => fs.listDir(assetDir).then(files => {
+    assets = files;
+  }));
 
-  after(function() {
-    return rmdir(baseDir);
-  });
+  after(() => rmdir(baseDir));
 
-  it('current path', function() {
-    return withoutSpawn(function() {
-      return init({_: []}).then(function() {
-        return check(baseDir);
-      });
-    });
-  });
+  it('current path', () => withoutSpawn(() => init({_: []}).then(() => check(baseDir))));
 
-  it('relative path', function() {
-    return withoutSpawn(function() {
-      return init({_: ['test']}).then(function() {
-        return check(pathFn.join(baseDir, 'test'));
-      });
-    });
-  });
+  it('relative path', () => withoutSpawn(() => init({_: ['test']}).then(() => check(pathFn.join(baseDir, 'test')))));
 
-  it('absolute path', function() {
+  it('absolute path', () => {
     const path = pathFn.join(baseDir, 'test');
 
-    return withoutSpawn(function() {
-      return init({_: [path]}).then(function() {
-        return check(path);
-      });
-    });
+    return withoutSpawn(() => init({_: [path]}).then(() => check(path)));
   });
 
   it('git clone');

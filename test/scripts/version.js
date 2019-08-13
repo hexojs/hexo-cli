@@ -11,40 +11,36 @@ const rewire = require('rewire');
 function getConsoleLog(spy) {
   const args = spy.args;
 
-  return args.map(function(arr) {
-    return format.apply(null, arr);
-  }).join('\n');
+  return args.map(arr => format.apply(null, arr)).join('\n');
 }
 
-describe('version', function() {
+describe('version', () => {
   const versionModule = rewire('../../lib/console/version');
   const hexo = new Context();
 
-  it('show version info', function() {
+  it('show version info', () => {
     const spy = sinon.spy();
 
     return versionModule.__with__({
       console: {
         log: spy
       }
-    })(function() {
-      return versionModule.call(hexo, {_: []});
-    }).then(function() {
+    })(() => versionModule.call(hexo, {_: []})).then(() => {
       const output = getConsoleLog(spy);
       const expected = [
-        'hexo-cli: ' + cliVersion,
-        'os: ' + os.type() + ' ' + os.release() + ' ' + os.platform() + ' ' + os.arch()
+        `hexo-cli: ${cliVersion}`,
+        `os: ${os.type()} ${os.release()} ${os.platform()} ${os.arch()}`
       ];
 
-      Object.keys(process.versions).forEach(function(key) {
-        expected.push(key + ': ' + process.versions[key]);
+      Object.keys(process.versions).forEach(key => {
+        expected.push(`${key}: ${process.versions[key]}`);
       });
 
       output.should.eql(expected.join('\n'));
     });
   });
 
-  it('show hexo version if available', function() {
+  it('show hexo version if available', () => {
     const spy = sinon.spy();
 
     hexo.version = '3.2.1';
@@ -53,13 +49,11 @@ describe('version', function() {
       console: {
         log: spy
       }
-    })(function() {
-      return versionModule.call(hexo, {_: []});
-    }).then(function() {
+    })(() => versionModule.call(hexo, {_: []})).then(() => {
       const output = getConsoleLog(spy);
 
-      output.should.contain('hexo: ' + hexo.version);
-    }).finally(function() {
+      output.should.contain(`hexo: ${hexo.version}`);
+    }).finally(() => {
       hexo.version = null;
     });
   });
