@@ -42,7 +42,7 @@
     "chalk": "^2.4.2",
     "command-exists": "^1.2.8",
     "hexo-fs": "^2.0.0",
-    "hexo-log": "^0.2.0",
+    "hexo-log": "^1.0.0",
     "hexo-util": "^1.0.0",
     "minimist": "^1.2.0",
     "resolve": "^1.11.0",
