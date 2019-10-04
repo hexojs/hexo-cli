@@ -15,10 +15,16 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node }}
-    - name: npm install, build, and test
+    - name: npm install, lint, and test
       run: |
         npm i
         npm run eslint
-        npm test
+        npm  - npm run test-cov
+      env:
+        CI: true
+    - name: nyc
+      run: |
+        npm install coveralls
+        nyc report --reporter=text-lcov | coveralls
       env:
         CI: true
