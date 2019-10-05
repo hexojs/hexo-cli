@@ -19,7 +19,7 @@ jobs:
       run: |
         npm i
         npm run eslint
-        npm  - npm run test-cov
+        npm run test-cov
       env:
         CI: true
     - name: nyc
