@@ -24,7 +24,8 @@ jobs:
         CI: true
     - name: nyc
       run: |
-        npm install coveralls
+        npm i
+        npm i coveralls
         nyc report --reporter=text-lcov | coveralls
       env:
         CI: true
