@@ -4,8 +4,6 @@ on: [push]
 
 jobs:
   build:
-    env:
-      CI: true
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -18,7 +16,7 @@ jobs:
       with:
         node-version: ${{ matrix.node }}
     - name: npm install
-      run: npm i
+      run: npm install
     - name: lint
       run: npm run eslint
     - name: test
@@ -29,7 +27,6 @@ jobs:
           github-token: ${{ secrets.github_token }}
           parallel: true
           path-to-lcov: ./coverage/lcov.info # optional (default value)
-
     - name: Coveralls Finished
       uses: coverallsapp/github-action@master
       with:
