@@ -4,6 +4,8 @@ on: [push]
 
 jobs:
   build:
+    env:
+      CI: true
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -15,13 +17,12 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node }}
-    - name: npm install, lint, and test
-      run: |
-        npm i
-        npm run eslint
-        npm run test-cov
-      env:
-        CI: true
+    - name: npm install
+      run: npm i
+    - name: lint
+      run: npm run eslint
+    - name: test
+      run: npm run test-cov
     - name: Coveralls Parallel
       uses: coverallsapp/github-action@master
       with:
