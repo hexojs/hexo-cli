@@ -24,8 +24,6 @@ jobs:
         CI: true
     - name: nyc
       run: |
-        npm i coveralls
-        coveralls
-        npx nyc report --reporter=text-lcov | coveralls
+        npx nyc report --reporter=text-lcov | npx coveralls
       env:
         CI: true
