@@ -17,6 +17,7 @@ jobs:
         node-version: ${{ matrix.node }}
     - run: npm install
     - run: npm run eslint
+    - run: npm test
     - run: npm run test-cov
     - name: Coveralls Parallel
       uses: coverallsapp/github-action@master
