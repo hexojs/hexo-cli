@@ -15,7 +15,8 @@ jobs:
       uses: actions/setup-node@master
       with:
         node-version: ${{ matrix.node }}
-    - run: npm install -g npm@latest
+    - run: npm -v
+    - run: node -v
     - run: npm install
     - run: npm run eslint
     - run: npm test
