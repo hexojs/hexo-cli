@@ -4,7 +4,7 @@ require('chai').should();
 const pathFn = require('path');
 const fs = require('hexo-fs');
 const Promise = require('bluebird');
-const { hash } = require('hexo-util');
+const { createSha1Hash } = require('hexo-util');
 const rewire = require('rewire');
 const Context = require('../../lib/context');
 const assetDir = pathFn.join(__dirname, '../../assets');
@@ -32,8 +32,8 @@ describe('init', () => {
   }
 
   function compareFile(a, b) {
-    const streamA = hash.createSha1Hash();
-    const streamB = hash.createSha1Hash();
+    const streamA = createSha1Hash();
+    const streamB = createSha1Hash();
 
     return Promise.all([
       pipeStream(fs.createReadStream(a), streamA),
