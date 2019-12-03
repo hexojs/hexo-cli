@@ -61,7 +61,8 @@ describe('context', () => {
 
     beforeEach(() => {
       hexo = new Context();
-      fatal = hexo.log.fatal = sinon.spy();
+      hexo.log.fatal = sinon.spy();
+      fatal = hexo.log.fatal;
     });
 
     it('no error', () => {
