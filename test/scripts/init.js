@@ -18,7 +18,7 @@ describe('init', () => {
 
   function rmdir(path) {
     return fs.rmdir(path).catch(err => {
-      if (err.cause && err.cause.code === 'ENOENT') return;
+      if (err && err.code === 'ENOENT') return;
       throw err;
     });
   }
