@@ -2,6 +2,7 @@
 
 require('chai').should();
 const sinon = require('sinon');
+const { should } = require('chai');
 
 describe('context', () => {
   const Context = require('../../lib/context');
@@ -12,23 +13,25 @@ describe('context', () => {
 
     hexo.extend.console.register('test', spy);
 
-    it('success', () => {
+    it('success', async () => {
       const args = {foo: 'bar'};
+      const result = await hexo.call('test', args);
 
-      return hexo.call('test', args).then(result => {
-        result.should.eql(args);
-        spy.calledOnce.should.be.true;
-        spy.lastCall.args[0].should.eql(args);
-        spy.resetHistory();
-      });
+      result.should.eql(args);
+      spy.calledOnce.should.be.true;
+      spy.lastCall.args[0].should.eql(args);
+      spy.resetHistory();
     });
 
-    it('console not registered', () => {
+    it('console not registered', async () => {
       const hexo = new Context();
 
-      return hexo.call('wtf').catch(err => {
+      try {
+        await hexo.call('wtf');
+        should.fail();
+      } catch (err) {
         err.should.have.property('message', 'Console `wtf` has not been registered yet!');
-      });
+      }
     });
 
     it('with callback', done => {
