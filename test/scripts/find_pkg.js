@@ -1,6 +1,6 @@
 'use strict';
 
-const { should } = require('chai');
+const should = require('chai').should();
 const { rmdir, writeFile, unlink } = require('hexo-fs');
 const { dirname, join } = require('path');
 
@@ -8,7 +8,7 @@ describe('Find package', () => {
   const findPkg = require('../../lib/find_pkg');
   const baseDir = join(__dirname, 'find_pkg_test');
 
-  after(() => rmdir(baseDir));
+  after(async () => await rmdir(baseDir));
 
   it('not found', async () => {
     const path = await findPkg(baseDir, {});

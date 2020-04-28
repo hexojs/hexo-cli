@@ -1,8 +1,8 @@
 'use strict';
 
 require('chai').should();
+const should = require('chai').should();
 const sinon = require('sinon');
-const { should } = require('chai');
 
 describe('context', () => {
   const Context = require('../../lib/context');

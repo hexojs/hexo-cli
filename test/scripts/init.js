@@ -41,7 +41,7 @@ describe('init', () => {
       pipeStream(createReadStream(b), streamB)
     ]);
 
-    streamA.read().equals(streamB.read());
+    return streamA.read().equals(streamB.read());
   }
 
   async function check(path) {
