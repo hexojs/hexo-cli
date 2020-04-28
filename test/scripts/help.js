@@ -8,9 +8,7 @@ const { join } = require('path');
 const { format } = require('util');
 const rewire = require('rewire');
 
-function getConsoleLog(spy) {
-  const { args } = spy;
-
+function getConsoleLog({ args }) {
   return args.map(arr => format.apply(null, arr)).join('\n');
 }
 
