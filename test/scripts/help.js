@@ -3,7 +3,6 @@
 require('chai').should();
 const Context = require('../../lib/context');
 const sinon = require('sinon');
-const Promise = require('bluebird');
 const { readFile } = require('hexo-fs');
 const { join } = require('path');
 const { format } = require('util');
