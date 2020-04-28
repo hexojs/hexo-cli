@@ -10,57 +10,64 @@ describe('Find package', () => {
 
   after(() => fs.rmdir(baseDir));
 
-  it('not found', () => findPkg(baseDir, {}).then(path => {
+  it('not found', async () => {
+    const path = await findPkg(baseDir, {});
     should.not.exist(path);
-  }));
-
-  it('found', () => {
-    const pkgPath = pathFn.join(baseDir, 'package.json');
-
-    return fs.writeFile(pkgPath, '{"hexo": {}}').then(() => findPkg(baseDir, {})).then(path => {
-      path.should.eql(baseDir);
-      return fs.unlink(pkgPath);
-    });
   });
 
-  it('found in parent directory', () => {
+  it('found', async () => {
+    const pkgPath = pathFn.join(baseDir, 'package.json');
+
+    await fs.writeFile(pkgPath, '{"hexo": {}}');
+    const path = await findPkg(baseDir, {});
+    path.should.eql(baseDir);
+
+    await fs.unlink(pkgPath);
+  });
+
+  it('found in parent directory', async () => {
     const pkgPath = pathFn.join(baseDir, '../package.json');
 
-    return fs.writeFile(pkgPath, '{"hexo": {}}').then(() => findPkg(baseDir, {})).then(path => {
-      path.should.eql(pathFn.dirname(pkgPath));
-      return fs.unlink(pkgPath);
-    });
+    await fs.writeFile(pkgPath, '{"hexo": {}}');
+    const path = await findPkg(baseDir, {});
+    path.should.eql(pathFn.dirname(pkgPath));
+
+    await fs.unlink(pkgPath);
   });
 
-  it('found but don\'t have hexo data', () => {
+  it('found but don\'t have hexo data', async () => {
     const pkgPath = pathFn.join(baseDir, 'package.json');
 
-    return fs.writeFile(pkgPath, '{"name": "hexo"}').then(() => findPkg(baseDir, {})).then(path => {
-      should.not.exist(path);
-      return fs.unlink(pkgPath);
-    });
+    await fs.writeFile(pkgPath, '{"name": "hexo"}');
+    const path = await findPkg(baseDir, {});
+    should.not.exist(path);
+
+    await fs.unlink(pkgPath);
   });
 
-  it('relative cwd', () => {
+  it('relative cwd', async () => {
     const pkgPath = pathFn.join(baseDir, 'test', 'package.json');
 
-    return fs.writeFile(pkgPath, '{"hexo": {}}').then(() => findPkg(baseDir, {cwd: 'test'})).then(path => {
-      path.should.eql(pathFn.dirname(pkgPath));
-      return fs.unlink(pkgPath);
-    });
+    await fs.writeFile(pkgPath, '{"hexo": {}}');
+    const path = await findPkg(baseDir, { cwd: 'test' });
+    path.should.eql(pathFn.dirname(pkgPath));
+
+    await fs.unlink(pkgPath);
   });
 
-  it('specify cwd but don\'t have hexo data', () => findPkg(baseDir, {cwd: 'test'}).then(path => {
+  it('specify cwd but don\'t have hexo data', async () => {
+    const path = await findPkg(baseDir, {cwd: 'test'});
     should.not.exist(path);
-  }));
+  });
 
-  it('absolute cwd', () => {
+  it('absolute cwd', async () => {
     const pkgPath = pathFn.join(baseDir, 'test', 'package.json');
     const cwd = pathFn.dirname(pkgPath);
 
-    return fs.writeFile(pkgPath, '{"hexo": {}}').then(() => findPkg(baseDir, {cwd})).then(path => {
-      path.should.eql(cwd);
-      return fs.unlink(pkgPath);
-    });
+    await fs.writeFile(pkgPath, '{"hexo": {}}');
+    const path = await findPkg(baseDir, { cwd });
+    path.should.eql(cwd);
+
+    await fs.unlink(pkgPath);
   });
 });
