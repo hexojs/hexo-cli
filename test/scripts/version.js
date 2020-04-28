@@ -3,14 +3,12 @@
 require('chai').should();
 const Context = require('../../lib/context');
 const sinon = require('sinon');
-const os = require('os');
+const { arch, platform, release, type } = require('os');
 const { format } = require('util');
 const cliVersion = require('../../package.json').version;
 const rewire = require('rewire');
 
-function getConsoleLog(spy) {
-  const args = spy.args;
-
+function getConsoleLog({ args }) {
   return args.map(arr => format.apply(null, arr)).join('\n');
 }
 
@@ -25,11 +23,12 @@ describe('version', () => {
       console: {
         log: spy
       }
-    })(() => versionModule.call(hexo, {_: []})).then(() => {
+    })(async () => {
+      await versionModule.call(hexo, {_: []});
       const output = getConsoleLog(spy);
       const expected = [
         `hexo-cli: ${cliVersion}`,
-        `os: ${os.type()} ${os.release()} ${os.platform()} ${os.arch()}`
+        `os: ${type()} ${release()} ${platform()} ${arch()}`
       ];
 
       Object.keys(process.versions).forEach(key => {
@@ -49,7 +48,8 @@ describe('version', () => {
       console: {
         log: spy
       }
-    })(() => versionModule.call(hexo, {_: []})).then(() => {
+    })(async () => {
+      await versionModule.call(hexo, {_: []});
       const output = getConsoleLog(spy);
 
       output.should.contain(`hexo: ${hexo.version}`);
