@@ -1,23 +1,23 @@
 'use strict';
 
 require('chai').should();
-const pathFn = require('path');
-const fs = require('hexo-fs');
+const { join } = require('path');
+const { listDir, rmdir, createReadStream } = require('hexo-fs');
 const { createSha1Hash } = require('hexo-util');
 const rewire = require('rewire');
 const Context = require('../../lib/context');
-const assetDir = pathFn.join(__dirname, '../../assets');
+const assetDir = join(__dirname, '../../assets');
 
 describe('init', () => {
-  const baseDir = pathFn.join(__dirname, 'init_test');
+  const baseDir = join(__dirname, 'init_test');
   const initModule = rewire('../../lib/console/init');
   const hexo = new Context(baseDir, { silent: true });
   const init = initModule.bind(hexo);
   let assets = [];
 
-  async function rmdir(path) {
+  async function rmDir(path) {
     try {
-      await fs.rmdir(path);
+      await rmdir(path);
     } catch (err) {
       if (err && err.code === 'ENOENT') return;
       throw err;
@@ -37,8 +37,8 @@ describe('init', () => {
     const streamB = createSha1Hash();
 
     await Promise.all([
-      pipeStream(fs.createReadStream(a), streamA),
-      pipeStream(fs.createReadStream(b), streamB)
+      pipeStream(createReadStream(a), streamA),
+      pipeStream(createReadStream(b), streamB)
     ]);
 
     streamA.read().equals(streamB.read());
@@ -47,8 +47,8 @@ describe('init', () => {
   async function check(path) {
     for (const item of assets) {
       const result = await compareFile(
-        pathFn.join(assetDir, item),
-        pathFn.join(path, item)
+        join(assetDir, item),
+        join(path, item)
       );
 
       result.should.be.true;
@@ -61,11 +61,11 @@ describe('init', () => {
   }
 
   before(async () => {
-    const files = await fs.listDir(assetDir);
+    const files = await listDir(assetDir);
     assets = files;
   });
 
-  after(async () => await rmdir(baseDir));
+  after(async () => await rmDir(baseDir));
 
   it('current path', () => withoutSpawn(async () => {
     await init({_: []});
@@ -74,11 +74,11 @@ describe('init', () => {
 
   it('relative path', () => withoutSpawn(async () => {
     await init({_: ['test']});
-    await check(pathFn.join(baseDir, 'test'));
+    await check(join(baseDir, 'test'));
   }));
 
   it('absolute path', () => {
-    const path = pathFn.join(baseDir, 'test');
+    const path = join(baseDir, 'test');
 
     withoutSpawn(async () => {
       await init({_: [path]});
