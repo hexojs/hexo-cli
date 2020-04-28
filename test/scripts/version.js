@@ -25,7 +25,8 @@ describe('version', () => {
       console: {
         log: spy
       }
-    })(() => versionModule.call(hexo, {_: []})).then(() => {
+    })(async () => {
+      await versionModule.call(hexo, {_: []});
       const output = getConsoleLog(spy);
       const expected = [
         `hexo-cli: ${cliVersion}`,
@@ -49,7 +50,8 @@ describe('version', () => {
       console: {
         log: spy
       }
-    })(() => versionModule.call(hexo, {_: []})).then(() => {
+    })(async () => {
+      await versionModule.call(hexo, {_: []});
       const output = getConsoleLog(spy);
 
       output.should.contain(`hexo: ${hexo.version}`);
