@@ -4,13 +4,13 @@ require('chai').should();
 const Context = require('../../lib/context');
 const sinon = require('sinon');
 const Promise = require('bluebird');
-const fs = require('hexo-fs');
-const pathFn = require('path');
+const { readFile } = require('hexo-fs');
+const { join } = require('path');
 const { format } = require('util');
 const rewire = require('rewire');
 
 function getConsoleLog(spy) {
-  const args = spy.args;
+  const { args } = spy;
 
   return args.map(arr => format.apply(null, arr)).join('\n');
 }
@@ -168,7 +168,7 @@ describe('help', () => {
       await helpModule.call(hexo, {_: [], completion: 'bash'});
       const output = getConsoleLog(spy);
 
-      const script = await fs.readFile(pathFn.join(__dirname, '../../completion/bash'));
+      const script = await readFile(join(__dirname, '../../completion/bash'));
       script.should.eql(output);
     });
   });
