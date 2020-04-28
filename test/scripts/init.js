@@ -3,7 +3,6 @@
 require('chai').should();
 const pathFn = require('path');
 const fs = require('hexo-fs');
-const Promise = require('bluebird');
 const { createSha1Hash } = require('hexo-util');
 const rewire = require('rewire');
 const Context = require('../../lib/context');
@@ -16,11 +15,13 @@ describe('init', () => {
   const init = initModule.bind(hexo);
   let assets = [];
 
-  function rmdir(path) {
-    return fs.rmdir(path).catch(err => {
+  async function rmdir(path) {
+    try {
+      await fs.rmdir(path);
+    } catch (err) {
       if (err && err.code === 'ENOENT') return;
       throw err;
-    });
+    }
   }
 
   function pipeStream(rs, ws) {
@@ -31,41 +32,58 @@ describe('init', () => {
     });
   }
 
-  function compareFile(a, b) {
+  async function compareFile(a, b) {
     const streamA = createSha1Hash();
     const streamB = createSha1Hash();
 
-    return Promise.all([
+    await Promise.all([
       pipeStream(fs.createReadStream(a), streamA),
       pipeStream(fs.createReadStream(b), streamB)
-    ]).then(() => streamA.read().equals(streamB.read()));
+    ]);
+
+    streamA.read().equals(streamB.read());
   }
 
-  function check(path) {
-    return Promise.each(assets, item => compareFile(
-      pathFn.join(assetDir, item),
-      pathFn.join(path, item)
-    ).should.eventually.be.true).finally(() => rmdir(path));
+  async function check(path) {
+    for (const item of assets) {
+      const result = await compareFile(
+        pathFn.join(assetDir, item),
+        pathFn.join(path, item)
+      );
+
+      result.should.be.true;
+    }
+
   }
 
   function withoutSpawn(fn) {
     return initModule.__with__('spawn', () => Promise.reject(new Error('spawn is not available')))(fn);
   }
 
-  before(() => fs.listDir(assetDir).then(files => {
+  before(async () => {
+    const files = await fs.listDir(assetDir);
     assets = files;
+  });
+
+  after(async () => await rmdir(baseDir));
+
+  it('current path', () => withoutSpawn(async () => {
+    await init({_: []});
+    await check(baseDir);
   }));
 
-  after(() => rmdir(baseDir));
-
-  it('current path', () => withoutSpawn(() => init({_: []}).then(() => check(baseDir))));
-
-  it('relative path', () => withoutSpawn(() => init({_: ['test']}).then(() => check(pathFn.join(baseDir, 'test')))));
+  it('relative path', () => withoutSpawn(async () => {
+    await init({_: ['test']});
+    await check(pathFn.join(baseDir, 'test'));
+  }));
 
   it('absolute path', () => {
     const path = pathFn.join(baseDir, 'test');
 
-    return withoutSpawn(() => init({_: [path]}).then(() => check(path)));
+    withoutSpawn(async () => {
+      await init({_: [path]});
+      await check(path);
+    });
   });
 
   it('git clone');
