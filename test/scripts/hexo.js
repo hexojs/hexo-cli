@@ -7,7 +7,7 @@ const proxyquire = require('proxyquire');
 describe('hexo', () => {
   const cwd = process.cwd();
 
-  it('run help if no specified command', () => {
+  it('run help if no specified command', async () => {
     const spy = sinon.spy();
     const hexo = proxyquire('../../lib/hexo', {
       './console'(ctx) {
@@ -15,12 +15,11 @@ describe('hexo', () => {
       }
     });
 
-    return hexo(cwd, {_: []}).then(() => {
-      spy.calledOnce.should.be.true;
-    });
+    await hexo(cwd, {_: []});
+    spy.calledOnce.should.be.true;
   });
 
-  it('run specified command', () => {
+  it('run specified command', async () => {
     const spy = sinon.spy();
     const hexo = proxyquire('../../lib/hexo', {
       './console'(ctx) {
@@ -28,12 +27,11 @@ describe('hexo', () => {
       }
     });
 
-    return hexo(cwd, {_: ['test']}).then(() => {
-      spy.calledOnce.should.be.true;
-    });
+    await hexo(cwd, {_: ['test']});
+    spy.calledOnce.should.be.true;
   });
 
-  it('run help if specified command not found', () => {
+  it('run help if specified command not found', async () => {
     const spy = sinon.spy();
     const hexo = proxyquire('../../lib/hexo', {
       './console'(ctx) {
@@ -41,9 +39,8 @@ describe('hexo', () => {
       }
     });
 
-    return hexo(cwd, {_: ['test']}).then(() => {
-      spy.calledOnce.should.be.true;
-    });
+    await hexo(cwd, {_: ['test']});
+    spy.calledOnce.should.be.true;
   });
 
   it('should call init() method');
