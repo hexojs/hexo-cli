@@ -28,7 +28,8 @@ describe('help', () => {
       console: {
         log: spy
       }
-    })(() => helpModule.call(hexo, {_: []})).then(() => {
+    })(async () => {
+      await helpModule.call(hexo, {_: []});
       const output = getConsoleLog(spy);
 
       output.should.contain('Usage: hexo <command>');
@@ -42,7 +43,8 @@ describe('help', () => {
       console: {
         log: spy
       }
-    })(() => helpModule.call(hexo, {_: ['init']})).then(() => {
+    })(async () => {
+      await helpModule.call(hexo, {_: ['init']});
       const output = getConsoleLog(spy);
 
       output.should.contain('Usage: hexo init');
@@ -56,7 +58,8 @@ describe('help', () => {
       console: {
         log: spy
       }
-    })(() => helpModule.call(hexo, {_: ['i']})).then(() => {
+    })(async () => {
+      await helpModule.call(hexo, {_: ['i']});
       const output = getConsoleLog(spy);
 
       output.should.contain('Usage: hexo init');
@@ -70,7 +73,8 @@ describe('help', () => {
       console: {
         log: spy
       }
-    })(() => helpModule.call(hexo, {_: ['init']})).then(() => {
+    })(async () => {
+      await helpModule.call(hexo, {_: ['init']});
       const output = getConsoleLog(spy);
 
       output.should.contain(`Description:\n${hexo.extend.console.get('init').options.desc}`);
@@ -84,7 +88,8 @@ describe('help', () => {
       console: {
         log: spy
       }
-    })(() => helpModule.call(hexo, {_: ['init']})).then(() => {
+    })(async () => {
+      await helpModule.call(hexo, {_: ['init']});
       const output = getConsoleLog(spy);
 
       output.should.contain(`Usage: hexo init ${hexo.extend.console.get('init').options.usage}`);
@@ -98,7 +103,8 @@ describe('help', () => {
       console: {
         log: spy
       }
-    })(() => helpModule.call(hexo, {_: ['init']})).then(() => {
+    })(async () => {
+      await helpModule.call(hexo, {_: ['init']});
       const output = getConsoleLog(spy);
 
       hexo.extend.console.get('init').options.arguments.forEach(arg => {
@@ -115,7 +121,8 @@ describe('help', () => {
       console: {
         log: spy
       }
-    })(() => helpModule.call(hexo, {_: ['init']})).then(() => {
+    })(async () => {
+      await helpModule.call(hexo, {_: ['init']});
       const output = getConsoleLog(spy);
 
       hexo.extend.console.get('init').options.options.forEach(option => {
@@ -125,14 +132,14 @@ describe('help', () => {
     });
   });
 
-  it('show version info', () => {
+  it('show version info', async () => {
     sinon.stub(hexo, 'call').callsFake(() => Promise.resolve());
 
-    return helpModule.call(hexo, {_: [], version: true}).then(() => {
-      hexo.call.calledWith('version').should.be.true;
-    }).finally(() => {
-      hexo.call.restore();
-    });
+    await helpModule.call(hexo, {_: [], version: true});
+
+    hexo.call.calledWith('version').should.be.true;
+
+    await hexo.call.restore();
   });
 
   it('show console list', () => {
@@ -142,7 +149,8 @@ describe('help', () => {
       console: {
         log: spy
       }
-    })(() => helpModule.call(hexo, {_: [], consoleList: true})).then(() => {
+    })(async () => {
+      await helpModule.call(hexo, {_: [], consoleList: true});
       const output = getConsoleLog(spy);
 
       output.should.eql(Object.keys(hexo.extend.console.list()).join('\n'));
@@ -156,12 +164,12 @@ describe('help', () => {
       console: {
         log: spy
       }
-    })(() => helpModule.call(hexo, {_: [], completion: 'bash'})).then(() => {
+    })(async () => {
+      await helpModule.call(hexo, {_: [], completion: 'bash'});
       const output = getConsoleLog(spy);
 
-      return fs.readFile(pathFn.join(__dirname, '../../completion/bash')).then(script => {
-        script.should.eql(output);
-      });
+      const script = await fs.readFile(pathFn.join(__dirname, '../../completion/bash'));
+      script.should.eql(output);
     });
   });
 });
