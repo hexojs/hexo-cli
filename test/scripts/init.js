@@ -77,6 +77,31 @@ describe('init', () => {
     await check(join(baseDir, 'test'));
   }));
 
+  it('unconventional path', () => withoutSpawn(async () => {
+    await init({_: ['0x400']});
+    await check(join(baseDir, '0x400'));
+
+    await init({_: ['0b101']});
+    await check(join(baseDir, '0b101'));
+
+    await init({_: ['0o71']});
+    await check(join(baseDir, '0o71'));
+
+    await init({_: ['undefined']});
+    await check(join(baseDir, 'undefined'));
+
+    await init({_: ['null']});
+    await check(join(baseDir, 'null'));
+
+    await init({_: ['true']});
+    await check(join(baseDir, 'true'));
+  }));
+
+  it('path multi-charset', () => withoutSpawn(async () => {
+    await init({_: ['中文']});
+    await check(join(baseDir, '中文'));
+  }));
+
   it('absolute path', () => {
     const path = join(baseDir, 'test');
 
