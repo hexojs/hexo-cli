@@ -39,7 +39,6 @@
     "abbrev": "^1.1.1",
     "bluebird": "^3.5.5",
     "chalk": "^4.0.0",
-    "command-exists": "^1.2.8",
     "hexo-fs": "^3.0.1",
     "hexo-log": "^1.0.0",
     "hexo-util": "^2.0.0",
