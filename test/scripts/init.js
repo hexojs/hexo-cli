@@ -74,7 +74,7 @@ describe('init', () => {
 
   it('relative path', () => withoutSpawn(async () => {
     await init({_: ['test']});
-    await check(join(baseDir, 'test'));
+    await check(join(baseDir, 'lorem'));
   }));
 
   it('unconventional path', () => withoutSpawn(async () => {
