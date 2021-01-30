@@ -15,7 +15,7 @@ jobs:
         with:
           submodules: true
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
       - name: Cache NPM dependencies
@@ -41,7 +41,7 @@ jobs:
         with:
           submodules: true
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
       - name: Cache NPM dependencies
