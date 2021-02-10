@@ -7,7 +7,7 @@ const { platform, release } = require('os');
 const { format } = require('util');
 const cliVersion = require('../../package.json').version;
 const rewire = require('rewire');
-const { spawn } = require('hexo-util')
+const { spawn } = require('hexo-util');
 
 function getConsoleLog({ args }) {
   return args.map(arr => format.apply(null, arr)).join('\n');
@@ -39,7 +39,7 @@ describe('version', () => {
 
       if (process.env.CI === 'true') {
         if (process.platform === 'darwin') {
-          const osInfo = await spawn('sw_vers', '-productVersion')
+          const osInfo = await spawn('sw_vers', '-productVersion');
           output.should.contain(`os: ${platform()} ${release()} ${osInfo}`);
         } else if (process.platform === 'linux') {
           const v = await spawn('cat', '/etc/os-release');
