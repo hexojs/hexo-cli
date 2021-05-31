@@ -15,7 +15,7 @@
   "scripts": {
     "eslint": "eslint .",
     "test": "mocha test/index.js",
-    "test-cov": "nyc --reporter=lcovonly npm run test",
+    "test-cov": "nyc --reporter=lcovonly npm test",
     "prepare": "git submodule init && git submodule update && git submodule foreach git pull origin master"
   },
   "directories": {
