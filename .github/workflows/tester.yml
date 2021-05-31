@@ -8,7 +8,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        node-version: ['10.x', '12.x', '14.x']
+        node-version: ['12.x', '14.x', '16.x']
       fail-fast: false
     steps:
       - uses: actions/checkout@v2
@@ -18,12 +18,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Cache NPM dependencies
-        uses: actions/cache@v1
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-npm-cache
-          restore-keys: ${{ runner.os }}-npm-cache
       - name: Install Dependencies
         run: npm install
       - name: Test
@@ -44,12 +38,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Cache NPM dependencies
-        uses: actions/cache@v1
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-npm-cache
-          restore-keys: ${{ runner.os }}-npm-cache
       - name: Install Dependencies
         run: npm install
       - name: Coverage
