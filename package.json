@@ -52,7 +52,7 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
-    "eslint": "^7.0.0",
+    "eslint": "^8.0.0",
     "eslint-config-hexo": "^4.0.0",
     "hexo-renderer-marked": "^4.0.0",
     "mocha": "^9.1.1",
