@@ -1,0 +1,17 @@
+---
+# THIS IS A SAMPLE ".tas.yml" CONFIGURATION FILE
+# FIRSTLY - You need to specify which testing framework you are using. Currently supported JS frameworks are : mocha, jest and jasmine.
+framework: mocha # mocha # framework should be as per your project
+
+preRun:
+  # SECONDLY - You need to set the preRun commands. These are shell commands executed inside the root level of your git repository before running the tests. preRun commands are executed using non-login shells by default, so you must explicitly source any dotfiles as part of the command.
+  command:
+    - npm install
+    - npm run prepare
+
+postMerge:
+  # THIRDLY - You need to set postMerge patterns.
+  # These would be the glob patterns for the test cases that you want to execute in the post-merge jobs. A postMerge test execution job is initiated whenever a PR is merged into a branch.
+  pattern:
+    # glob-patterns to discover tests to run in case of postMerge
+    - "test/index.js"
