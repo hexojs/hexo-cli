@@ -10,3 +10,8 @@ preRun:
 postMerge:
   pattern:
     - "test/index.js"
+
+
+preMerge:
+  pattern:
+    - "test/index.js"
