@@ -45,7 +45,7 @@
     "hexo-log": "^3.0.0",
     "hexo-util": "^2.5.0",
     "minimist": "^1.2.5",
-    "nanocolors": "^0.2.13",
+    "picocolors": "^1.0.0",
     "resolve": "^1.20.0",
     "tildify": "^2.0.0"
   },
