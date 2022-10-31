@@ -9,4 +9,4 @@ const byeWords = [
   'Catch you later'
 ];
 
-module.exports = () => byeWords[(Math.random() * byeWords.length) | 0];
+export = () => byeWords[(Math.random() * byeWords.length) | 0];

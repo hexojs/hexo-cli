@@ -1,9 +1,13 @@
 'use strict';
 
-const { resolve, join, dirname } = require('path');
-const { readFile } = require('hexo-fs');
+import {resolve, join, dirname} from 'path';
+import {readFile} from 'hexo-fs';
 
-function findPkg(cwd, args = {}) {
+interface findPkgArgs {
+  cwd?: string;
+}
+
+function findPkg(cwd, args: findPkgArgs = {}) {
   if (args.cwd) {
     cwd = resolve(cwd, args.cwd);
   }
@@ -29,4 +33,4 @@ function checkPkg(path) {
   });
 }
 
-module.exports = findPkg;
+export = findPkg;

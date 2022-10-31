@@ -1,14 +1,19 @@
 'use strict';
 
-const { magenta } = require('picocolors');
-const tildify = require('tildify');
-const Promise = require('bluebird');
-const Context = require('./context');
-const findPkg = require('./find_pkg');
-const goodbye = require('./goodbye');
-const minimist = require('minimist');
-const resolve = require('resolve');
-const { camelCaseKeys } = require('hexo-util');
+import {magenta} from 'picocolors';
+import tildify from 'tildify';
+import Promise from 'bluebird';
+import Context from './context';
+import findPkg from './find_pkg';
+import goodbye from './goodbye';
+import minimist from 'minimist';
+import resolve from 'resolve';
+import { camelCaseKeys } from 'hexo-util';
+
+import Console from './console';
+import helpConsole from './console/help';
+import initConsole from './console/init';
+import versionConsole from './console/version';
 
 class HexoNotFoundError extends Error {}
 
@@ -44,7 +49,7 @@ function entry(cwd = process.cwd(), args) {
     if (mod) hexo = mod;
     log = hexo.log;
 
-    require('./console')(hexo);
+    Console(hexo);
 
     return hexo.init();
   }).then(() => {
@@ -65,9 +70,9 @@ function entry(cwd = process.cwd(), args) {
 }
 
 entry.console = {
-  init: require('./console/init'),
-  help: require('./console/help'),
-  version: require('./console/version')
+  init: initConsole,
+  help: helpConsole,
+  version: versionConsole
 };
 
 entry.version = require('../package.json').version;
@@ -93,4 +98,4 @@ function watchSignal(hexo) {
   });
 }
 
-module.exports = entry;
+export = entry;

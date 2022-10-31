@@ -5,7 +5,7 @@ const { rmdir, writeFile, unlink } = require('hexo-fs');
 const { dirname, join } = require('path');
 
 describe('Find package', () => {
-  const findPkg = require('../../lib/find_pkg');
+  const findPkg = require('../../dist/find_pkg');
   const baseDir = join(__dirname, 'find_pkg_test');
 
   after(async () => await rmdir(baseDir));

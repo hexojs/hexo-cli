@@ -1,15 +1,26 @@
 'use strict';
 
-const Promise = require('bluebird');
-const abbrev = require('abbrev');
+import Promise from 'bluebird';
+import abbrev from 'abbrev';
+
+interface Store {
+  [key: string]: Function;
+}
+
+interface Alias {
+  [key: string]: string;
+}
 
 class Console {
+  store: Store;
+  alias: Alias;
+
   constructor() {
     this.store = {};
     this.alias = {};
   }
 
-  get(name) {
+  get(name: string) {
     name = name.toLowerCase();
     return this.store[this.alias[name]];
   }
@@ -62,4 +73,4 @@ class Console {
   }
 }
 
-module.exports = Console;
+export = Console;

@@ -1,9 +1,9 @@
 'use strict';
 
-const { underline, bold } = require('picocolors');
-const { readFile } = require('hexo-fs');
-const { join } = require('path');
-const Promise = require('bluebird');
+import {underline, bold} from 'picocolors';
+import {readFile} from 'hexo-fs';
+import {join} from 'path';
+import Promise from 'bluebird';
 
 const COMPLETION_DIR = join(__dirname, '../../completion');
 
@@ -115,4 +115,4 @@ function printCompletion(type) {
   });
 }
 
-module.exports = helpConsole;
+export = helpConsole;
