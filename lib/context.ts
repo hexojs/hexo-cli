@@ -7,9 +7,11 @@ import ConsoleExtend from './extend/console';
 // a stub Hexo object
 // see `hexojs/hexo/lib/hexo/index.js`
 
+type Callback = (err?: any, value?: any) => void;
+
 class Context extends EventEmitter {
   base_dir: string;
-  log: any;
+  log: logger;
   extend: {
     console: ConsoleExtend;
   };
@@ -28,11 +30,11 @@ class Context extends EventEmitter {
     // Do nothing
   }
 
-  call(name: string, args: object, callback: Function);
-  call(name: string, args: Function);
-  call(name, args: object | Function, callback?: Function) {
+  call(name: string, args: object, callback: Callback);
+  call(name: string, callback?: Callback);
+  call(name: string, args?: object | Callback, callback?: Callback) {
     if (!callback && typeof args === 'function') {
-      callback = args;
+      callback = args as Callback;
       args = {};
     }
 

@@ -1,6 +1,6 @@
 'use strict';
 
-const chai = require('chai');
+require('chai');
 
 describe('hexo-cli', () => {
   require('./scripts/find_pkg');

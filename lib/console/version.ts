@@ -3,7 +3,7 @@ const pkg = require('../../package.json');
 import BlueBirdPromise from 'bluebird';
 import {spawn} from 'hexo-util';
 
-async function versionConsole(args) {
+async function versionConsole() {
   const { versions, platform } = process;
   const keys = Object.keys(versions);
 

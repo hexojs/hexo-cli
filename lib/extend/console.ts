@@ -1,8 +1,14 @@
 import Promise from 'bluebird';
 import abbrev from 'abbrev';
 
+interface Callback {
+  (args?: object): any;
+  options?: object;
+  desc?: string;
+}
+
 interface Store {
-  [key: string]: Function;
+  [key: string]: Callback;
 }
 
 interface Alias {
@@ -27,13 +33,17 @@ class Console {
     return this.store;
   }
 
-  register(name, desc, options, fn) {
+  register(name: string, desc: string, options: object, fn: Callback);
+  register(name: string, options: object, fn: Callback);
+  register(name: string, desc: string, fn: Callback);
+  register(name: string, fn: Callback);
+  register(name: string, desc: string | object | Callback, options?: object | Callback, fn?: Callback) {
     if (!name) throw new TypeError('name is required');
 
     if (!fn) {
       if (options) {
         if (typeof options === 'function') {
-          fn = options;
+          fn = options as Callback;
 
           if (typeof desc === 'object') { // name, options, fn
             options = desc;
@@ -47,7 +57,7 @@ class Console {
       } else {
         // name, fn
         if (typeof desc === 'function') {
-          fn = desc;
+          fn = desc as Callback;
           options = {};
           desc = '';
         } else {
@@ -65,7 +75,7 @@ class Console {
     this.store[name.toLowerCase()] = fn;
     const c = fn;
     c.options = options;
-    c.desc = desc;
+    c.desc = desc as string;
 
     this.alias = abbrev(Object.keys(this.store));
   }

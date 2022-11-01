@@ -17,7 +17,7 @@ function checkPkg(path) {
   const pkgPath = join(path, 'package.json');
 
   return readFile(pkgPath).then(content => {
-    const json = JSON.parse(content);
+    const json = JSON.parse(content as string);
     if (typeof json.hexo === 'object') return path;
   }).catch(err => {
     if (err && err.code === 'ENOENT') {

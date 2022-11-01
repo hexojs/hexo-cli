@@ -7,7 +7,7 @@ import goodbye from './goodbye';
 import minimist from 'minimist';
 import resolve from 'resolve';
 import { camelCaseKeys } from 'hexo-util';
-import Console from './console';
+import registerConsole from './console';
 import helpConsole from './console/help';
 import initConsole from './console/init';
 import versionConsole from './console/version';
@@ -46,7 +46,7 @@ function entry(cwd = process.cwd(), args) {
     if (mod) hexo = mod;
     log = hexo.log;
 
-    Console(hexo);
+    registerConsole(hexo);
 
     return hexo.init();
   }).then(() => {
