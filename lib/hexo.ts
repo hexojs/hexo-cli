@@ -72,7 +72,7 @@ entry.console = {
   version: versionConsole
 };
 
-entry.version = require('../package.json').version;
+entry.version = require('../package.json').version as string;
 
 function loadModule(path, args) {
   return Promise.try(() => {

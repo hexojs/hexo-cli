@@ -33,10 +33,10 @@ class Console {
     return this.store;
   }
 
-  register(name: string, desc: string, options: object, fn: Callback);
-  register(name: string, options: object, fn: Callback);
-  register(name: string, desc: string, fn: Callback);
-  register(name: string, fn: Callback);
+  register(name: string, desc: string, options: object, fn: Callback): void;
+  register(name: string, options: object, fn: Callback): void;
+  register(name: string, desc: string, fn: Callback): void;
+  register(name: string, fn: Callback): void;
   register(name: string, desc: string | object | Callback, options?: object | Callback, fn?: Callback) {
     if (!name) throw new TypeError('name is required');
 

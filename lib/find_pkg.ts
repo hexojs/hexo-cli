@@ -5,7 +5,7 @@ interface findPkgArgs {
   cwd?: string;
 }
 
-function findPkg(cwd, args: findPkgArgs = {}) {
+function findPkg(cwd: string, args: findPkgArgs = {}) {
   if (args.cwd) {
     cwd = resolve(cwd, args.cwd);
   }
@@ -13,7 +13,7 @@ function findPkg(cwd, args: findPkgArgs = {}) {
   return checkPkg(cwd);
 }
 
-function checkPkg(path) {
+function checkPkg(path: string) {
   const pkgPath = join(path, 'package.json');
 
   return readFile(pkgPath).then(content => {
