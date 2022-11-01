@@ -1,5 +1,3 @@
-'use strict';
-
 import {resolve, join, dirname} from 'path';
 import {readFile} from 'hexo-fs';
 

@@ -1,5 +1,3 @@
-'use strict';
-
 import {underline, bold} from 'picocolors';
 import {readFile} from 'hexo-fs';
 import {join} from 'path';

@@ -1,5 +1,3 @@
-'use strict';
-
 import logger from 'hexo-log';
 import {underline} from 'picocolors';
 import {EventEmitter} from 'events';
@@ -14,7 +12,7 @@ class Context extends EventEmitter {
   log: any;
   extend: {
     console: ConsoleExtend;
-  }
+  };
 
   constructor(base = process.cwd(), args = {}) {
     super();

@@ -1,5 +1,3 @@
-'use strict';
-
 import {magenta} from 'picocolors';
 import tildify from 'tildify';
 import Promise from 'bluebird';
@@ -9,7 +7,6 @@ import goodbye from './goodbye';
 import minimist from 'minimist';
 import resolve from 'resolve';
 import { camelCaseKeys } from 'hexo-util';
-
 import Console from './console';
 import helpConsole from './console/help';
 import initConsole from './console/init';

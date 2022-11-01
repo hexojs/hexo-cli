@@ -1,7 +1,5 @@
-'use strict';
-
 import os from 'os';
-const pkg =require('../../package.json');
+const pkg = require('../../package.json');
 import BlueBirdPromise from 'bluebird';
 import {spawn} from 'hexo-util';
 

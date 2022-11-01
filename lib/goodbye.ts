@@ -1,5 +1,3 @@
-'use strict';
-
 const byeWords = [
   'Good bye',
   'See you again',

@@ -1,5 +1,3 @@
-'use strict';
-
 import helpConsole from './help';
 import initConsole from './init';
 import versionConsole from './version';

@@ -1,5 +1,3 @@
-'use strict';
-
 import BlueBirdPromise from 'bluebird';
 import {join, resolve} from 'path';
 import {magenta} from 'picocolors';
