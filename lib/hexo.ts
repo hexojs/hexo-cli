@@ -1,4 +1,4 @@
-import {magenta} from 'picocolors';
+import { magenta } from 'picocolors';
 import tildify from 'tildify';
 import Promise from 'bluebird';
 import Context from './context';

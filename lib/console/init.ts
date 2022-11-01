@@ -1,10 +1,10 @@
 import BlueBirdPromise from 'bluebird';
-import {join, resolve} from 'path';
-import {magenta} from 'picocolors';
-import {existsSync, readdirSync, rmdir, unlink, copyDir, readdir, stat} from 'hexo-fs';
+import { join, resolve } from 'path';
+import { magenta } from 'picocolors';
+import { existsSync, readdirSync, rmdir, unlink, copyDir, readdir, stat } from 'hexo-fs';
 import tildify from 'tildify';
-import {spawn} from 'hexo-util';
-import {sync as commandExistsSync} from 'command-exists';
+import { spawn } from 'hexo-util';
+import { sync as commandExistsSync } from 'command-exists';
 
 const ASSET_DIR = join(__dirname, '../../assets');
 const GIT_REPO_URL = 'https://github.com/hexojs/hexo-starter.git';

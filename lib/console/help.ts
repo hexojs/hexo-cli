@@ -1,6 +1,6 @@
-import {underline, bold} from 'picocolors';
-import {readFile} from 'hexo-fs';
-import {join} from 'path';
+import { underline, bold } from 'picocolors';
+import { readFile } from 'hexo-fs';
+import { join } from 'path';
 import Promise from 'bluebird';
 
 const COMPLETION_DIR = join(__dirname, '../../completion');

@@ -1,5 +1,5 @@
-import {resolve, join, dirname} from 'path';
-import {readFile} from 'hexo-fs';
+import { resolve, join, dirname } from 'path';
+import { readFile } from 'hexo-fs';
 
 interface findPkgArgs {
   cwd?: string;

@@ -1,6 +1,6 @@
 import logger from 'hexo-log';
-import {underline} from 'picocolors';
-import {EventEmitter} from 'events';
+import { underline } from 'picocolors';
+import { EventEmitter } from 'events';
 import Promise from 'bluebird';
 import ConsoleExtend from './extend/console';
 
