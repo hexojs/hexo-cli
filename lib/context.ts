@@ -30,7 +30,9 @@ class Context extends EventEmitter {
     // Do nothing
   }
 
-  call(name: string, args: object | Function, callback?: Function) {
+  call(name: string, args: object, callback: Function);
+  call(name: string, args: Function);
+  call(name, args: object | Function, callback?: Function) {
     if (!callback && typeof args === 'function') {
       callback = args;
       args = {};

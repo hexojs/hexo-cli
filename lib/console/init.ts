@@ -1,6 +1,6 @@
 'use strict';
 
-import BluebirdPromise from 'bluebird';
+import BlueBirdPromise from 'bluebird';
 import {join, resolve} from 'path';
 import {magenta} from 'picocolors';
 import {existsSync, readdirSync, rmdir, unlink, copyDir, readdir, stat} from 'hexo-fs';
@@ -20,7 +20,7 @@ async function initConsole(args) {
 
   if (existsSync(target) && readdirSync(target).length !== 0) {
     log.fatal(`${magenta(tildify(target))} not empty, please run \`hexo init\` on an empty folder and then copy your files into it`);
-    await BluebirdPromise.reject(new Error('target not empty'));
+    await BlueBirdPromise.reject(new Error('target not empty'));
   }
 
   log.info('Cloning hexo-starter', GIT_REPO_URL);
@@ -38,7 +38,7 @@ async function initConsole(args) {
     await copyAsset(target);
   }
 
-  await BluebirdPromise.all([
+  await BlueBirdPromise.all([
     removeGitDir(target),
     removeGitModules(target)
   ]);
