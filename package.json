@@ -12,7 +12,7 @@
     "bin",
     "assets"
   ],
-  "types": "./dist/**/*.d.ts",
+  "types": "./dist/hexo.d.ts",
   "scripts": {
     "prepublish ": "npm run clean && npm run build",
     "build": "tsc -b",
