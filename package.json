@@ -47,7 +47,7 @@
     "bluebird": "^3.7.2",
     "command-exists": "^1.2.9",
     "hexo-fs": "^4.1.1",
-    "hexo-log": "^3.0.0",
+    "hexo-log": "^4.0.1",
     "hexo-util": "^2.5.0",
     "minimist": "^1.2.5",
     "picocolors": "^1.0.0",
