@@ -1,9 +1,11 @@
-'use strict';
+import { resolve, join, dirname } from 'path';
+import { readFile } from 'hexo-fs';
 
-const { resolve, join, dirname } = require('path');
-const { readFile } = require('hexo-fs');
+interface findPkgArgs {
+  cwd?: string;
+}
 
-function findPkg(cwd, args = {}) {
+function findPkg(cwd: string, args: findPkgArgs = {}) {
   if (args.cwd) {
     cwd = resolve(cwd, args.cwd);
   }
@@ -11,11 +13,11 @@ function findPkg(cwd, args = {}) {
   return checkPkg(cwd);
 }
 
-function checkPkg(path) {
+function checkPkg(path: string) {
   const pkgPath = join(path, 'package.json');
 
   return readFile(pkgPath).then(content => {
-    const json = JSON.parse(content);
+    const json = JSON.parse(content as string);
     if (typeof json.hexo === 'object') return path;
   }).catch(err => {
     if (err && err.code === 'ENOENT') {
@@ -29,4 +31,4 @@ function checkPkg(path) {
   });
 }
 
-module.exports = findPkg;
+export = findPkg;

@@ -5,3 +5,4 @@ tmp/
 .idea/
 .nyc_output/
 .vscode/
+dist/

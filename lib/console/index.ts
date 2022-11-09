@@ -1,9 +1,11 @@
-'use strict';
+import helpConsole from './help';
+import initConsole from './init';
+import versionConsole from './version';
 
-module.exports = function(ctx) {
+export = function(ctx) {
   const { console } = ctx.extend;
 
-  console.register('help', 'Get help on a command.', {}, require('./help'));
+  console.register('help', 'Get help on a command.', {}, helpConsole);
 
   console.register('init', 'Create a new Hexo folder.', {
     desc: 'Create a new Hexo folder at the specified path or the current directory.',
@@ -15,7 +17,7 @@ module.exports = function(ctx) {
       {name: '--no-clone', desc: 'Copy files instead of cloning from GitHub'},
       {name: '--no-install', desc: 'Skip npm install'}
     ]
-  }, require('./init'));
+  }, initConsole);
 
-  console.register('version', 'Display version information.', {}, require('./version'));
+  console.register('version', 'Display version information.', {}, versionConsole);
 };

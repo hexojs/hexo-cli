@@ -1,15 +1,30 @@
-'use strict';
+import Promise from 'bluebird';
+import abbrev from 'abbrev';
 
-const Promise = require('bluebird');
-const abbrev = require('abbrev');
+interface Callback {
+  (args?: object): any;
+  options?: object;
+  desc?: string;
+}
+
+interface Store {
+  [key: string]: Callback;
+}
+
+interface Alias {
+  [key: string]: string;
+}
 
 class Console {
+  store: Store;
+  alias: Alias;
+
   constructor() {
     this.store = {};
     this.alias = {};
   }
 
-  get(name) {
+  get(name: string) {
     name = name.toLowerCase();
     return this.store[this.alias[name]];
   }
@@ -18,13 +33,17 @@ class Console {
     return this.store;
   }
 
-  register(name, desc, options, fn) {
+  register(name: string, desc: string, options: object, fn: Callback): void;
+  register(name: string, options: object, fn: Callback): void;
+  register(name: string, desc: string, fn: Callback): void;
+  register(name: string, fn: Callback): void;
+  register(name: string, desc: string | object | Callback, options?: object | Callback, fn?: Callback) {
     if (!name) throw new TypeError('name is required');
 
     if (!fn) {
       if (options) {
         if (typeof options === 'function') {
-          fn = options;
+          fn = options as Callback;
 
           if (typeof desc === 'object') { // name, options, fn
             options = desc;
@@ -38,7 +57,7 @@ class Console {
       } else {
         // name, fn
         if (typeof desc === 'function') {
-          fn = desc;
+          fn = desc as Callback;
           options = {};
           desc = '';
         } else {
@@ -56,10 +75,10 @@ class Console {
     this.store[name.toLowerCase()] = fn;
     const c = fn;
     c.options = options;
-    c.desc = desc;
+    c.desc = desc as string;
 
     this.alias = abbrev(Object.keys(this.store));
   }
 }
 
-module.exports = Console;
+export = Console;

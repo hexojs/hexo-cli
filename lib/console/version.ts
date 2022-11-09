@@ -1,11 +1,9 @@
-'use strict';
-
-const os = require('os');
+import os from 'os';
 const pkg = require('../../package.json');
-const Promise = require('bluebird');
-const { spawn } = require('hexo-util');
+import BlueBirdPromise from 'bluebird';
+import { spawn } from 'hexo-util';
 
-async function versionConsole(args) {
+async function versionConsole() {
   const { versions, platform } = process;
   const keys = Object.keys(versions);
 
@@ -33,7 +31,7 @@ async function versionConsole(args) {
     console.log('%s: %s', key, versions[key]);
   }
 
-  await Promise.resolve();
+  await BlueBirdPromise.resolve();
 }
 
-module.exports = versionConsole;
+export = versionConsole;

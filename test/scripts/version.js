@@ -1,7 +1,7 @@
 'use strict';
 
 require('chai').should();
-const Context = require('../../lib/context');
+const Context = require('../../dist/context');
 const sinon = require('sinon');
 const { platform, release } = require('os');
 const { format } = require('util');
@@ -14,7 +14,7 @@ function getConsoleLog({ args }) {
 }
 
 describe('version', () => {
-  const versionModule = rewire('../../lib/console/version');
+  const versionModule = rewire('../../dist/console/version');
   const hexo = new Context();
 
   it('show version info', () => {

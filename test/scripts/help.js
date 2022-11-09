@@ -1,7 +1,7 @@
 'use strict';
 
 require('chai').should();
-const Context = require('../../lib/context');
+const Context = require('../../dist/context');
 const sinon = require('sinon');
 const { readFile } = require('hexo-fs');
 const { join } = require('path');
@@ -13,10 +13,10 @@ function getConsoleLog({ args }) {
 }
 
 describe('help', () => {
-  const helpModule = rewire('../../lib/console/help');
+  const helpModule = rewire('../../dist/console/help');
   const hexo = new Context();
 
-  require('../../lib/console')(hexo);
+  require('../../dist/console')(hexo);
 
   it('show global help', () => {
     const spy = sinon.spy();

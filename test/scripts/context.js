@@ -5,7 +5,7 @@ const should = require('chai').should();
 const sinon = require('sinon');
 
 describe('context', () => {
-  const Context = require('../../lib/context');
+  const Context = require('../../dist/context');
 
   describe('call', () => {
     const hexo = new Context();

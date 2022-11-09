@@ -1,15 +1,21 @@
-'use strict';
-
-const logger = require('hexo-log');
-const { underline } = require('picocolors');
-const { EventEmitter } = require('events');
-const Promise = require('bluebird');
-const ConsoleExtend = require('./extend/console');
+import logger from 'hexo-log';
+import { underline } from 'picocolors';
+import { EventEmitter } from 'events';
+import Promise from 'bluebird';
+import ConsoleExtend from './extend/console';
 
 // a stub Hexo object
 // see `hexojs/hexo/lib/hexo/index.js`
 
+type Callback = (err?: any, value?: any) => void;
+
 class Context extends EventEmitter {
+  base_dir: string;
+  log: logger;
+  extend: {
+    console: ConsoleExtend;
+  };
+
   constructor(base = process.cwd(), args = {}) {
     super();
     this.base_dir = base;
@@ -24,9 +30,11 @@ class Context extends EventEmitter {
     // Do nothing
   }
 
-  call(name, args, callback) {
+  call(name: string, args: object, callback: Callback);
+  call(name: string, callback?: Callback);
+  call(name: string, args?: object | Callback, callback?: Callback) {
     if (!callback && typeof args === 'function') {
-      callback = args;
+      callback = args as Callback;
       args = {};
     }
 
@@ -41,7 +49,7 @@ class Context extends EventEmitter {
     }).asCallback(callback);
   }
 
-  exit(err) {
+  exit(err?: Error) {
     if (err) {
       this.log.fatal(
         {err},
@@ -58,4 +66,4 @@ class Context extends EventEmitter {
   }
 }
 
-module.exports = Context;
+export = Context;

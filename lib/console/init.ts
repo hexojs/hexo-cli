@@ -1,12 +1,10 @@
-'use strict';
-
-const Promise = require('bluebird');
-const { join, resolve } = require('path');
-const { magenta } = require('picocolors');
-const { existsSync, readdirSync, rmdir, unlink, copyDir, readdir, stat } = require('hexo-fs');
-const tildify = require('tildify');
-const { spawn } = require('hexo-util');
-const commandExistsSync = require('command-exists').sync;
+import BlueBirdPromise from 'bluebird';
+import { join, resolve } from 'path';
+import { magenta } from 'picocolors';
+import { existsSync, readdirSync, rmdir, unlink, copyDir, readdir, stat } from 'hexo-fs';
+import tildify from 'tildify';
+import { spawn } from 'hexo-util';
+import { sync as commandExistsSync } from 'command-exists';
 
 const ASSET_DIR = join(__dirname, '../../assets');
 const GIT_REPO_URL = 'https://github.com/hexojs/hexo-starter.git';
@@ -20,7 +18,7 @@ async function initConsole(args) {
 
   if (existsSync(target) && readdirSync(target).length !== 0) {
     log.fatal(`${magenta(tildify(target))} not empty, please run \`hexo init\` on an empty folder and then copy your files into it`);
-    await Promise.reject(new Error('target not empty'));
+    await BlueBirdPromise.reject(new Error('target not empty'));
   }
 
   log.info('Cloning hexo-starter', GIT_REPO_URL);
@@ -38,7 +36,7 @@ async function initConsole(args) {
     await copyAsset(target);
   }
 
-  await Promise.all([
+  await BlueBirdPromise.all([
     removeGitDir(target),
     removeGitModules(target)
   ]);
@@ -111,4 +109,4 @@ async function removeGitModules(target) {
   }
 }
 
-module.exports = initConsole;
+export = initConsole;

@@ -5,12 +5,12 @@ const { join } = require('path');
 const { listDir, rmdir, createReadStream } = require('hexo-fs');
 const { createSha1Hash } = require('hexo-util');
 const rewire = require('rewire');
-const Context = require('../../lib/context');
+const Context = require('../../dist/context');
 const assetDir = join(__dirname, '../../assets');
 
 describe('init', () => {
   const baseDir = join(__dirname, 'init_test');
-  const initModule = rewire('../../lib/console/init');
+  const initModule = rewire('../../dist/console/init');
   const hexo = new Context(baseDir, { silent: true });
   const init = initModule.bind(hexo);
   let assets = [];
@@ -57,7 +57,7 @@ describe('init', () => {
   }
 
   function withoutSpawn(fn) {
-    return initModule.__with__('spawn', () => Promise.reject(new Error('spawn is not available')))(fn);
+    return initModule.__with__('hexo_util_1.spawn', () => Promise.reject(new Error('spawn is not available')))(fn);
   }
 
   before(async () => {

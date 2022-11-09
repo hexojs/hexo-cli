@@ -1,4 +1,11 @@
 {
-  "extends": "hexo",
-  "root": true
+  "root": true,
+  "extends": "hexo/ts.js",
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": 2020
+  },
+  "rules": {
+    "@typescript-eslint/no-var-requires": 0
+  }
 }

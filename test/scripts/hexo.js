@@ -9,7 +9,7 @@ describe('hexo', () => {
 
   it('run help if no specified command', async () => {
     const spy = sinon.spy();
-    const hexo = proxyquire('../../lib/hexo', {
+    const hexo = proxyquire('../../dist/hexo', {
       './console'(ctx) {
         ctx.extend.console.register('help', spy);
       }
@@ -21,7 +21,7 @@ describe('hexo', () => {
 
   it('run specified command', async () => {
     const spy = sinon.spy();
-    const hexo = proxyquire('../../lib/hexo', {
+    const hexo = proxyquire('../../dist/hexo', {
       './console'(ctx) {
         ctx.extend.console.register('test', spy);
       }
@@ -33,7 +33,7 @@ describe('hexo', () => {
 
   it('run help if specified command not found', async () => {
     const spy = sinon.spy();
-    const hexo = proxyquire('../../lib/hexo', {
+    const hexo = proxyquire('../../dist/hexo', {
       './console'(ctx) {
         ctx.extend.console.register('help', spy);
       }
