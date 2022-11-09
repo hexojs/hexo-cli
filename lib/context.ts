@@ -11,7 +11,7 @@ type Callback = (err?: any, value?: any) => void;
 
 class Context extends EventEmitter {
   base_dir: string;
-  log: logger;
+  log: ReturnType<typeof logger>;
   extend: {
     console: ConsoleExtend;
   };
