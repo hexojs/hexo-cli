@@ -2,7 +2,7 @@
   "name": "hexo-cli",
   "version": "4.3.0",
   "description": "Command line interface for Hexo",
-  "main": "lib/hexo",
+  "main": "dist/hexo",
   "bin": {
     "hexo": "./bin/hexo"
   },
@@ -24,7 +24,7 @@
     "prepare": "git submodule init && git submodule update && git submodule foreach git pull origin master"
   },
   "directories": {
-    "lib": "./lib",
+    "lib": "./dist",
     "bin": "./bin"
   },
   "repository": "hexojs/hexo-cli",
