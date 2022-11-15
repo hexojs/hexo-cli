@@ -23,10 +23,6 @@
     "test-cov": "nyc --reporter=lcovonly npm test",
     "prepare": "git submodule init && git submodule update && git submodule foreach git pull origin master"
   },
-  "directories": {
-    "lib": "./dist",
-    "bin": "./bin"
-  },
   "repository": "hexojs/hexo-cli",
   "homepage": "https://hexo.io/",
   "keywords": [
