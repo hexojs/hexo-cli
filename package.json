@@ -2,7 +2,7 @@
   "name": "hexo-cli",
   "version": "4.3.0",
   "description": "Command line interface for Hexo",
-  "main": "lib/hexo",
+  "main": "dist/hexo",
   "bin": {
     "hexo": "./bin/hexo"
   },
@@ -22,10 +22,6 @@
     "test": "mocha test/index.js --require ts-node/register",
     "test-cov": "nyc --reporter=lcovonly npm test",
     "prepare": "git submodule init && git submodule update && git submodule foreach git pull origin master"
-  },
-  "directories": {
-    "lib": "./lib",
-    "bin": "./bin"
   },
   "repository": "hexojs/hexo-cli",
   "homepage": "https://hexo.io/",
