@@ -15,7 +15,7 @@ import versionConsole from './console/version';
 class HexoNotFoundError extends Error {}
 
 function entry(cwd = process.cwd(), args) {
-  args = camelCaseKeys(args || minimist(process.argv.slice(2), { string: ['_'] }));
+  args = camelCaseKeys(args || minimist(process.argv.slice(2), { string: ['_', 'p', 'path', 's' ,'slug'] }));
 
   let hexo = new Context(cwd, args);
   let { log } = hexo;
