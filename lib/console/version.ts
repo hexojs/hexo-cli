@@ -13,12 +13,12 @@ async function versionConsole() {
 
   console.log('hexo-cli:', pkg.version);
 
-  let osInfo = '';
+  let osInfo: string | void | Buffer;
   if (platform === 'darwin') osInfo = await spawn('sw_vers', '-productVersion');
   else if (platform === 'linux') {
     const v = await spawn('cat', '/etc/os-release');
-    const distro = (v || '').match(/NAME="(.+)"/);
-    const versionInfo = (v || '').match(/VERSION="(.+)"/) || ['', ''];
+    const distro = String(v || '').match(/NAME="(.+)"/);
+    const versionInfo = String(v || '').match(/VERSION="(.+)"/) || ['', ''];
     const versionStr = versionInfo !== null ? versionInfo[1] : '';
     osInfo = `${distro[1]} ${versionStr}`.trim() || '';
   }
