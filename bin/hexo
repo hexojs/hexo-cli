@@ -2,4 +2,4 @@
 
 'use strict';
 
-require('../lib/hexo')();
+require('../dist/hexo')();
