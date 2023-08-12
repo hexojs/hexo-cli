@@ -1,6 +1,5 @@
 import logger from 'hexo-log';
 import { underline } from 'picocolors';
-import { EventEmitter } from 'events';
 import Promise from 'bluebird';
 import ConsoleExtend from './extend/console';
 
@@ -9,7 +8,7 @@ import ConsoleExtend from './extend/console';
 
 type Callback = (err?: any, value?: any) => void;
 
-class Context extends EventEmitter {
+class Context {
   base_dir: string;
   log: ReturnType<typeof logger>;
   extend: {
@@ -17,7 +16,6 @@ class Context extends EventEmitter {
   };
 
   constructor(base = process.cwd(), args = {}) {
-    super();
     this.base_dir = base;
     this.log = logger(args);
 
