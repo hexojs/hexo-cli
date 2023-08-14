@@ -68,7 +68,7 @@ function printAllHelp(list) {
   ]);
 
   console.log('For more help, you can use \'hexo help [command]\' for the detailed information');
-  console.log('or you can check the docs:', underline('http://hexo.io/docs/'));
+  console.log('or you can check the docs:', underline('https://hexo.io/docs/'));
 
   return Promise.resolve();
 }
