@@ -52,7 +52,7 @@ class Context {
       this.log.fatal(
         {err},
         'Something\'s wrong. Maybe you can find the solution here: %s',
-        underline('http://hexo.io/docs/troubleshooting.html')
+        underline('https://hexo.io/docs/troubleshooting.html')
       );
     }
 
