@@ -1,14 +1,14 @@
 # hexo-cli
 
-[![Build Status](https://github.com/hexojs/hexo-cli/actions/workflows/tester.yml/badge.svg)](https://github.com/hexojs/hexo-cli/actions/workflows/tester.yml)
+[![CI](https://github.com/hexojs/hexo-cli/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/hexojs/hexo-cli/actions/workflows/ci.yml)
 [![NPM version](https://badge.fury.io/js/hexo-cli.svg)](https://www.npmjs.com/package/hexo-cli)
-[![Coverage Status](https://coveralls.io/repos/hexojs/hexo-cli/badge.svg?branch=master)](https://coveralls.io/r/hexojs/hexo-cli?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/hexojs/hexo-cli/badge.svg)](https://coveralls.io/github/hexojs/hexo-cli)
 
 Command line interface for Hexo.
 
 ## Installation
 
-``` bash
+```bash
 $ npm install hexo-cli -g
 ```
 
