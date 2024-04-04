@@ -7,3 +7,4 @@ tmp/
 .vscode/
 dist/
 package-lock.json
+coverage/

@@ -1,6 +1,8 @@
 import chai from 'chai';
 import sinon from 'sinon';
 import proxyquire from 'proxyquire';
+import { writeFile, unlink, rmdir } from 'hexo-fs';
+import { join } from 'path';
 chai.should();
 
 require('chai').should();
@@ -50,7 +52,23 @@ describe('hexo', () => {
 
   it('should watch SIGINT signal');
 
-  it('load hexo module in current folder');
+  it('load hexo module in current folder', async () => {
+    const spy = sinon.spy();
+    const baseDir = join(__dirname, 'find_pkg_test');
+    const pkgPath = join(baseDir, 'package.json');
+
+    await writeFile(pkgPath, '{"hexo": {}}');
+    const hexo = proxyquire('../../dist/hexo', {
+      './console'(ctx) {
+        ctx.extend.console.register('help', spy);
+      }
+    });
+
+    await hexo(baseDir, {_: []});
+    spy.calledOnce.should.be.true;
+    await unlink(pkgPath);
+    await rmdir(baseDir);
+  });
 
   it('load hexo module in parent folder recursively');
 
