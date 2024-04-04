@@ -41,9 +41,9 @@ describe('version', () => {
           const osInfo = await spawn('sw_vers', '-productVersion');
           output.should.contain(`os: ${platform()} ${release()} ${osInfo}`);
         } else if (process.platform === 'linux') {
-          const v = await spawn('cat', '/etc/os-release');
+          const v = await spawn('cat', '/etc/os-release') as string;
           const distro = (v || '').match(/NAME="(.+)"/);
-          output.should.contain(`os: ${platform()} ${release()} ${distro[1]}`);
+          output.should.contain(`os: ${platform()} ${release()} ${distro![1]}`);
         }
       }
     });

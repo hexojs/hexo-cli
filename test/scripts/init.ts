@@ -57,7 +57,9 @@ describe('init', () => {
   }
 
   function withoutSpawn(fn) {
-    return initModule.__with__('hexo_util_1.spawn', () => Promise.reject(new Error('spawn is not available')))(fn);
+    return initModule.__with__({
+      'spawn_1': () => Promise.reject(new Error('spawn is not available'))
+    })(fn);
   }
 
   before(async () => {

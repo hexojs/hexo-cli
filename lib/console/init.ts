@@ -3,7 +3,7 @@ import { join, resolve } from 'path';
 import { magenta } from 'picocolors';
 import { existsSync, readdirSync, rmdir, unlink, copyDir, readdir, stat } from 'hexo-fs';
 import tildify from 'tildify';
-import { spawn } from 'hexo-util';
+import spawn from 'hexo-util/dist/spawn'; // for rewire
 import { sync as commandExistsSync } from 'command-exists';
 import type Context from '../context';
 
