@@ -6,3 +6,4 @@ tmp/
 .nyc_output/
 .vscode/
 dist/
+package-lock.json

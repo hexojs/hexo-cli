@@ -1,8 +1,9 @@
+import type Context from '../context';
 import helpConsole from './help';
 import initConsole from './init';
 import versionConsole from './version';
 
-export = function(ctx) {
+export = function(ctx: Context) {
   const { console } = ctx.extend;
 
   console.register('help', 'Get help on a command.', {}, helpConsole);

@@ -83,7 +83,7 @@ function loadModule(path, args) {
   });
 }
 
-function watchSignal(hexo) {
+function watchSignal(hexo: Context) {
   process.on('SIGINT', () => {
     hexo.log.info(goodbye());
     hexo.unwatch();

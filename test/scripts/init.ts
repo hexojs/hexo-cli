@@ -1,11 +1,11 @@
-'use strict';
+import chai from 'chai';
+import { join } from 'path';
+import { listDir, rmdir, createReadStream } from 'hexo-fs';
+import { createSha1Hash } from 'hexo-util';
+import rewire from 'rewire';
+import Context from '../../lib/context';
+chai.should();
 
-require('chai').should();
-const { join } = require('path');
-const { listDir, rmdir, createReadStream } = require('hexo-fs');
-const { createSha1Hash } = require('hexo-util');
-const rewire = require('rewire');
-const Context = require('../../dist/context');
 const assetDir = join(__dirname, '../../assets');
 
 describe('init', () => {
@@ -13,9 +13,9 @@ describe('init', () => {
   const initModule = rewire('../../dist/console/init');
   const hexo = new Context(baseDir, { silent: true });
   const init = initModule.bind(hexo);
-  let assets = [];
+  let assets: string[] = [];
 
-  async function rmDir(path) {
+  async function rmDir(path: string) {
     try {
       await rmdir(path);
     } catch (err) {

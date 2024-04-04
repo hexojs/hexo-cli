@@ -1,8 +1,9 @@
-'use strict';
+import chai from 'chai';
+import sinon from 'sinon';
+import proxyquire from 'proxyquire';
+chai.should();
 
 require('chai').should();
-const sinon = require('sinon');
-const proxyquire = require('proxyquire');
 
 describe('hexo', () => {
   const cwd = process.cwd();

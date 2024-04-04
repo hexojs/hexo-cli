@@ -2,10 +2,20 @@ import { underline, bold } from 'picocolors';
 import { readFile } from 'hexo-fs';
 import { join } from 'path';
 import Promise from 'bluebird';
+import type Context from '../context';
+import type { Callback, Store, Command } from '../types';
 
 const COMPLETION_DIR = join(__dirname, '../../completion');
 
-function helpConsole(args) {
+interface HelpArgs {
+  _: string[];
+  v?: boolean;
+  version?: boolean;
+  consoleList?: boolean;
+  completion?: string;
+}
+
+function helpConsole(this: Context, args: HelpArgs) {
   if (args.v || args.version) {
     return this.call('version');
   } else if (args.consoleList) {
@@ -24,7 +34,7 @@ function helpConsole(args) {
   return printAllHelp(this.extend.console.list());
 }
 
-function printHelpForCommand(command, data) {
+function printHelpForCommand(command: string, data: Callback) {
   const { options } = data;
 
   const desc = options.description || options.desc || data.description || data.desc;
@@ -40,7 +50,7 @@ function printHelpForCommand(command, data) {
   return Promise.resolve();
 }
 
-function printAllHelp(list) {
+function printAllHelp(list: Store) {
   const keys = Object.keys(list);
   const commands = [];
   const { length } = keys;
@@ -73,7 +83,7 @@ function printAllHelp(list) {
   return Promise.resolve();
 }
 
-function printList(title, list) {
+function printList(title: string, list: Command[]) {
   list.sort((a, b) => {
     const nameA = a.name;
     const nameB = b.name;
@@ -101,13 +111,13 @@ function printList(title, list) {
   return Promise.resolve();
 }
 
-function printConsoleList(list) {
+function printConsoleList(list: Store) {
   console.log(Object.keys(list).join('\n'));
 
   return Promise.resolve();
 }
 
-function printCompletion(type) {
+function printCompletion(type: string) {
   return readFile(join(COMPLETION_DIR, type)).then(content => {
     console.log(content);
   });
