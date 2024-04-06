@@ -1,16 +1,15 @@
-'use strict';
-
-require('chai').should();
-const Context = require('../../dist/context');
-const sinon = require('sinon');
-const { platform, release } = require('os');
-const { format } = require('util');
-const cliVersion = require('../../package.json').version;
-const rewire = require('rewire');
-const { spawn } = require('hexo-util');
+import chai from 'chai';
+import sinon from 'sinon';
+import Context from '../../lib/context';
+import { platform, release } from 'os';
+import { format } from 'util';
+import { version as cliVersion } from '../../package.json';
+import rewire from 'rewire';
+import { spawn } from 'hexo-util';
+chai.should();
 
 function getConsoleLog({ args }) {
-  return args.map(arr => format.apply(null, arr)).join('\n');
+  return args.map(arr => format(...arr)).join('\n');
 }
 
 describe('version', () => {
@@ -27,7 +26,7 @@ describe('version', () => {
     })(async () => {
       await versionModule.call(hexo, {_: []});
       const output = getConsoleLog(spy);
-      const expected = [];
+      const expected: string[] = [];
 
       Object.keys(process.versions).forEach(key => {
         expected.push(`${key}: ${process.versions[key]}`);
@@ -42,9 +41,9 @@ describe('version', () => {
           const osInfo = await spawn('sw_vers', '-productVersion');
           output.should.contain(`os: ${platform()} ${release()} ${osInfo}`);
         } else if (process.platform === 'linux') {
-          const v = await spawn('cat', '/etc/os-release');
+          const v = await spawn('cat', '/etc/os-release') as string;
           const distro = (v || '').match(/NAME="(.+)"/);
-          output.should.contain(`os: ${platform()} ${release()} ${distro[1]}`);
+          output.should.contain(`os: ${platform()} ${release()} ${distro![1]}`);
         }
       }
     });

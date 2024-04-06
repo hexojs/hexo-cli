@@ -1,22 +1,22 @@
-'use strict';
-
-require('chai').should();
-const Context = require('../../dist/context');
-const sinon = require('sinon');
-const { readFile } = require('hexo-fs');
-const { join } = require('path');
-const { format } = require('util');
-const rewire = require('rewire');
+import chai from 'chai';
+import sinon, { type SinonStub } from 'sinon';
+import { readFile } from 'hexo-fs';
+import { join } from 'path';
+import { format } from 'util';
+import rewire from 'rewire';
+import Context from '../../lib/context';
+import console from '../../lib/console';
+chai.should();
 
 function getConsoleLog({ args }) {
-  return args.map(arr => format.apply(null, arr)).join('\n');
+  return args.map(arr => format(...arr)).join('\n');
 }
 
 describe('help', () => {
   const helpModule = rewire('../../dist/console/help');
   const hexo = new Context();
 
-  require('../../dist/console')(hexo);
+  console(hexo);
 
   it('show global help', () => {
     const spy = sinon.spy();
@@ -74,7 +74,7 @@ describe('help', () => {
       await helpModule.call(hexo, {_: ['init']});
       const output = getConsoleLog(spy);
 
-      output.should.contain(`Description:\n${hexo.extend.console.get('init').options.desc}`);
+      output.should.contain(`Description:\n${hexo.extend.console.get('init').options!.desc}`);
     });
   });
 
@@ -89,7 +89,7 @@ describe('help', () => {
       await helpModule.call(hexo, {_: ['init']});
       const output = getConsoleLog(spy);
 
-      output.should.contain(`Usage: hexo init ${hexo.extend.console.get('init').options.usage}`);
+      output.should.contain(`Usage: hexo init ${hexo.extend.console.get('init').options!.usage}`);
     });
   });
 
@@ -104,7 +104,7 @@ describe('help', () => {
       await helpModule.call(hexo, {_: ['init']});
       const output = getConsoleLog(spy);
 
-      hexo.extend.console.get('init').options.arguments.forEach(arg => {
+      hexo.extend.console.get('init').options!.arguments!.forEach(arg => {
         output.should.contain(arg.name);
         output.should.contain(arg.desc);
       });
@@ -122,7 +122,7 @@ describe('help', () => {
       await helpModule.call(hexo, {_: ['init']});
       const output = getConsoleLog(spy);
 
-      hexo.extend.console.get('init').options.options.forEach(option => {
+      hexo.extend.console.get('init').options!.options!.forEach(option => {
         output.should.contain(option.name);
         output.should.contain(option.desc);
       });
@@ -134,9 +134,11 @@ describe('help', () => {
 
     await helpModule.call(hexo, {_: [], version: true});
 
-    hexo.call.calledWith('version').should.be.true;
+    const call = hexo.call as SinonStub;
 
-    await hexo.call.restore();
+    call.calledWith('version').should.be.true;
+
+    await call.restore();
   });
 
   it('show console list', () => {

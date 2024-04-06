@@ -3,13 +3,20 @@ import { join, resolve } from 'path';
 import { magenta } from 'picocolors';
 import { existsSync, readdirSync, rmdir, unlink, copyDir, readdir, stat } from 'hexo-fs';
 import tildify from 'tildify';
-import { spawn } from 'hexo-util';
+import spawn from 'hexo-util/dist/spawn'; // for rewire
 import { sync as commandExistsSync } from 'command-exists';
+import type Context from '../context';
 
 const ASSET_DIR = join(__dirname, '../../assets');
 const GIT_REPO_URL = 'https://github.com/hexojs/hexo-starter.git';
 
-async function initConsole(args) {
+interface InitArgs {
+  _: string[];
+  install?: boolean;
+  clone?: boolean;
+}
+
+async function initConsole(this: Context, args: InitArgs) {
   args = Object.assign({ install: true, clone: true }, args);
 
   const baseDir = this.base_dir;
@@ -83,11 +90,11 @@ async function initConsole(args) {
   }
 }
 
-async function copyAsset(target) {
+async function copyAsset(target: string) {
   await copyDir(ASSET_DIR, target, { ignoreHidden: false });
 }
 
-function removeGitDir(target) {
+function removeGitDir(target: string) {
   const gitDir = join(target, '.git');
 
   return stat(gitDir).catch(err => {
@@ -100,7 +107,7 @@ function removeGitDir(target) {
   }).then(() => readdir(target)).map(path => join(target, path)).filter(path => stat(path).then(stats => stats.isDirectory())).each(removeGitDir);
 }
 
-async function removeGitModules(target) {
+async function removeGitModules(target: string) {
   try {
     await unlink(join(target, '.gitmodules'));
   } catch (err) {

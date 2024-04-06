@@ -4,7 +4,7 @@ import Promise from 'bluebird';
 import ConsoleExtend from './extend/console';
 
 // a stub Hexo object
-// see `hexojs/hexo/lib/hexo/index.js`
+// see `hexojs/hexo/lib/hexo/index.ts`
 
 type Callback = (err?: any, value?: any) => void;
 
@@ -14,6 +14,7 @@ class Context {
   extend: {
     console: ConsoleExtend;
   };
+  version?: string | null;
 
   constructor(base = process.cwd(), args = {}) {
     this.base_dir = base;
@@ -28,7 +29,7 @@ class Context {
     // Do nothing
   }
 
-  call(name: string, args: object, callback: Callback);
+  call(name: string, args: object, callback?: Callback);
   call(name: string, callback?: Callback);
   call(name: string, args?: object | Callback, callback?: Callback) {
     if (!callback && typeof args === 'function') {

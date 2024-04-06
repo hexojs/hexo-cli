@@ -19,7 +19,7 @@
     "clean": "tsc -b --clean",
     "eslint": "eslint .",
     "pretest": "npm run clean && npm run build",
-    "test": "mocha test/index.js --require ts-node/register",
+    "test": "mocha test/**/*.ts --require ts-node/register",
     "test-cov": "nyc --reporter=lcovonly npm test",
     "prepare": "git submodule init && git submodule update && git submodule foreach git pull origin master"
   },
@@ -44,15 +44,23 @@
     "command-exists": "^1.2.9",
     "hexo-fs": "^4.1.1",
     "hexo-log": "^4.0.1",
-    "hexo-util": "^2.5.0",
+    "hexo-util": "^3.3.0",
     "minimist": "^1.2.5",
     "picocolors": "^1.0.0",
     "resolve": "^1.20.0",
     "tildify": "^2.0.0"
   },
   "devDependencies": {
+    "@types/abbrev": "^1.1.5",
     "@types/bluebird": "^3.5.37",
+    "@types/chai": "^4.3.14",
+    "@types/command-exists": "^1.2.3",
+    "@types/minimist": "^1.2.5",
+    "@types/mocha": "^10.0.6",
     "@types/node": "^18.11.8",
+    "@types/proxyquire": "^1.3.31",
+    "@types/rewire": "^2.5.30",
+    "@types/sinon": "^17.0.3",
     "chai": "^4.3.4",
     "eslint": "^8.2.0",
     "eslint-config-hexo": "^5.0.0",
@@ -61,9 +69,9 @@
     "nyc": "^15.1.0",
     "proxyquire": "^2.1.3",
     "rewire": "^6.0.0",
-    "sinon": "^15.0.1",
+    "sinon": "^17.0.1",
     "ts-node": "^10.9.1",
-    "typescript": "^4.8.4"
+    "typescript": "^5.0.0"
   },
   "engines": {
     "node": ">=14"

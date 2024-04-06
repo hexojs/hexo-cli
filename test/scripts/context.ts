@@ -1,12 +1,9 @@
-'use strict';
-
-require('chai').should();
-const should = require('chai').should();
-const sinon = require('sinon');
+import chai from 'chai';
+import sinon from 'sinon';
+import Context from '../../lib/context';
+const should = chai.should();
 
 describe('context', () => {
-  const Context = require('../../dist/context');
-
   describe('call', () => {
     const hexo = new Context();
     const spy = sinon.spy(args => args);

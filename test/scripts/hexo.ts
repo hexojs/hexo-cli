@@ -1,8 +1,11 @@
-'use strict';
+import chai from 'chai';
+import sinon from 'sinon';
+import proxyquire from 'proxyquire';
+import { writeFile, unlink, rmdir } from 'hexo-fs';
+import { join } from 'path';
+chai.should();
 
 require('chai').should();
-const sinon = require('sinon');
-const proxyquire = require('proxyquire');
 
 describe('hexo', () => {
   const cwd = process.cwd();
@@ -48,8 +51,6 @@ describe('hexo', () => {
   it('should handle error properly');
 
   it('should watch SIGINT signal');
-
-  it('load hexo module in current folder');
 
   it('load hexo module in parent folder recursively');
 
