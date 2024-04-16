@@ -14,7 +14,7 @@
   ],
   "types": "./dist/hexo.d.ts",
   "scripts": {
-    "prepublish ": "npm install && npm run clean && npm run build",
+    "prepublishOnly": "npm install && npm run clean && npm run build",
     "build": "tsc -b",
     "clean": "tsc -b --clean",
     "eslint": "eslint .",
@@ -23,7 +23,10 @@
     "test-cov": "nyc --reporter=lcovonly npm test",
     "prepare": "git submodule init && git submodule update && git submodule foreach git pull origin master"
   },
-  "repository": "hexojs/hexo-cli",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hexojs/hexo-cli.git"
+  },
   "homepage": "https://hexo.io/",
   "keywords": [
     "website",
