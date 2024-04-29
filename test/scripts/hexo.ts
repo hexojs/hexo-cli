@@ -19,7 +19,7 @@ describe('hexo', () => {
         }
       }
     })(async () => {
-      // @ts-ignore
+      // @ts-expect-error
       await hexo(cwd, {_: []});
       spy.calledOnce.should.be.true;
     });
@@ -35,7 +35,7 @@ describe('hexo', () => {
         }
       }
     })(async () => {
-      // @ts-ignore
+      // @ts-expect-error
       await hexo(cwd, {_: ['test']});
       spy.calledOnce.should.be.true;
     });
@@ -51,7 +51,7 @@ describe('hexo', () => {
         }
       }
     })(async () => {
-      // @ts-ignore
+      // @ts-expect-error
       await hexo(cwd, {_: ['test']});
       spy.calledOnce.should.be.true;
     });
@@ -69,7 +69,7 @@ describe('hexo', () => {
       }
     })(async () => {
       process.argv = ['hexo', 'new', '--path', '123', 'test'];
-      // @ts-ignore
+      // @ts-expect-error
       hexo(null, null);
       args.path.should.eql('123');
       process.argv = [];
@@ -88,7 +88,7 @@ describe('hexo', () => {
       }
     })(async () => {
       process.argv = ['hexo', 'new', '-p', '123', 'test'];
-      // @ts-ignore
+      // @ts-expect-error
       hexo(null, null);
       args.p.should.eql('123');
       process.argv = [];
@@ -107,7 +107,7 @@ describe('hexo', () => {
       }
     })(async () => {
       process.argv = ['hexo', 'new', '--slug', '123', 'test'];
-      // @ts-ignore
+      // @ts-expect-error
       hexo(null, null);
       args.slug.should.eql('123');
       process.argv = [];
@@ -126,7 +126,7 @@ describe('hexo', () => {
       }
     })(async () => {
       process.argv = ['hexo', 'new', '-s', '123', 'test'];
-      // @ts-ignore
+      // @ts-expect-error
       hexo(null, null);
       args.s.should.eql('123');
       process.argv = [];
@@ -156,7 +156,7 @@ describe('hexo', () => {
         }
       }
     })(async () => {
-      // @ts-ignore
+      // @ts-expect-error
       await hexo(cwd, {_: ['test']});
       spy.args[0][0].should.eql(dummyError);
       spy.args[1][0].should.eql('Local hexo loading failed in %s');
@@ -194,7 +194,7 @@ describe('hexo', () => {
         }
       }
     })(async () => {
-      // @ts-ignore
+      // @ts-expect-error
       await hexo(cwd, {_: ['test']});
       spy.args[0][0].message.should.eql(dummyError);
       process.exitCode?.should.eql(2);
@@ -252,7 +252,7 @@ describe('hexo', () => {
         }
       }
     })(async () => {
-      // @ts-ignore
+      // @ts-expect-error
       await hexo(cwd, {_: ['help']});
       [
         'Good bye',
