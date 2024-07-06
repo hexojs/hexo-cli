@@ -52,10 +52,10 @@ async function initConsole(this: Context, args: InitArgs) {
   log.info('Install dependencies');
 
   let npmCommand = 'npm';
-  if (commandExistsSync('yarn')) {
-    npmCommand = 'yarn';
-  } else if (commandExistsSync('pnpm')) {
+  if (commandExistsSync('pnpm')) {
     npmCommand = 'pnpm';
+  } else if (commandExistsSync('yarn')) {
+    npmCommand = 'yarn';
   }
 
   try {
