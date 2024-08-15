@@ -48,13 +48,11 @@
     "hexo-fs": "^4.1.1",
     "hexo-log": "^4.0.1",
     "hexo-util": "^3.3.0",
+    "js-yaml": "^4.1.0",
     "minimist": "^1.2.5",
     "picocolors": "^1.0.0",
     "resolve": "^1.20.0",
     "tildify": "^2.0.0"
-  },
-  "peerDependencies": {
-    "js-yaml": "^4.1.0"
   },
   "devDependencies": {
     "@types/abbrev": "^1.1.5",
