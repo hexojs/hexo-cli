@@ -59,6 +59,7 @@
     "@types/bluebird": "^3.5.37",
     "@types/chai": "^4.3.14",
     "@types/command-exists": "^1.2.3",
+    "@types/js-yaml": "^4.0.9",
     "@types/minimist": "^1.2.5",
     "@types/mocha": "^10.0.6",
     "@types/node": "^18.11.8",
