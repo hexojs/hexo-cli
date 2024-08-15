@@ -14,21 +14,35 @@ function findPkg(cwd: string, args: findPkgArgs = {}) {
 }
 
 function checkPkg(path: string) {
-  const pkgPath = join(path, 'package.json');
+  // prefers package.json over package.yaml
+  const pkgJsonPath = join(path, 'package.json');
+  const pkgYamlPath = join(path, 'package.yaml');
 
-  return readFile(pkgPath).then(content => {
-    const json = JSON.parse(content as string);
-    if (typeof json.hexo === 'object') return path;
-  }).catch(err => {
-    if (err && err.code === 'ENOENT') {
-      const parent = dirname(path);
-
-      if (parent === path) return;
-      return checkPkg(parent);
-    }
-
-    throw err;
-  });
+  return readFile(pkgJsonPath)
+    // if package.json exists, read it
+    .then(content => JSON.parse(content))
+    .catch(err => {
+      if (err.code === 'ENOENT') {
+        // package.json not exist, try package.yaml
+        return readFile(pkgYamlPath)
+          // if package.yaml exists, read it
+          .then(content => require('js-yaml').load(content))
+          .catch(err => {
+            if (err.code === 'ENOENT') {
+              // neither package file exists, search in parent dir
+              const parent = dirname(path);
+              if (parent === path) return;
+              return checkPkg(parent);
+            }
+            throw err;
+          });
+      }
+      throw err;
+    })
+    // successfully read in package config
+    .then(config => {
+      return config?.hexo ? path : null;
+    });
 }
 
 export = findPkg;
