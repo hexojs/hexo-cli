@@ -1,5 +1,6 @@
 import { resolve, join, dirname } from 'path';
-import { readFile } from 'hexo-fs';
+import { readFileSync, existsSync } from 'fs';
+import { load } from 'js-yaml';
 
 interface findPkgArgs {
   cwd?: string;
@@ -13,36 +14,18 @@ function findPkg(cwd: string, args: findPkgArgs = {}) {
   return checkPkg(cwd);
 }
 
-function checkPkg(path: string) {
-  // prefers package.json over package.yaml
-  const pkgJsonPath = join(path, 'package.json');
-  const pkgYamlPath = join(path, 'package.yaml');
+async function checkPkg(path: string): Promise<string | null> {
+  // if a pkg file exists, and the hexo key in it is non-empty
+  if (readPkg(join(path, 'package.json'), JSON.parse)
+   || readPkg(join(path, 'package.yaml'), load)) { return path; }
+  // otherwise, search in parent dir, terminate at root
+  const parent = dirname(path);
+  return parent === path ? null : checkPkg(parent);
+}
 
-  return readFile(pkgJsonPath)
-    // if package.json exists, read it
-    .then(content => JSON.parse(content))
-    .catch(err => {
-      if (err.code === 'ENOENT') {
-        // package.json not exist, try package.yaml
-        return readFile(pkgYamlPath)
-          // if package.yaml exists, read it
-          .then(content => require('js-yaml').load(content))
-          .catch(err => {
-            if (err.code === 'ENOENT') {
-              // neither package file exists, search in parent dir
-              const parent = dirname(path);
-              if (parent === path) return;
-              return checkPkg(parent);
-            }
-            throw err;
-          });
-      }
-      throw err;
-    })
-    // successfully read in package config
-    .then(config => {
-      return config?.hexo ? path : null;
-    });
+/** If pkg file exists, read it, parse it, and access the hexo object in it */
+function readPkg(pkgPath: string, parser: CallableFunction): object | null {
+  return existsSync(pkgPath) ? parser(readFileSync(pkgPath))?.hexo : null;
 }
 
 export = findPkg;
