@@ -7,7 +7,8 @@ import goodbye from './goodbye';
 import minimist from 'minimist';
 import resolve from 'resolve';
 import { camelCaseKeys } from 'hexo-util';
-import registerConsole from './console/index';
+// eslint-disable-next-line n/no-missing-import
+import registerConsole from './console';
 import helpConsole from './console/help';
 import initConsole from './console/init';
 import versionConsole from './console/version';
