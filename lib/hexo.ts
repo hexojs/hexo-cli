@@ -7,6 +7,7 @@ import goodbye from './goodbye';
 import minimist from 'minimist';
 import resolve from 'resolve';
 import { camelCaseKeys } from 'hexo-util';
+// eslint-disable-next-line n/no-missing-import
 import registerConsole from './console';
 import helpConsole from './console/help';
 import initConsole from './console/init';
@@ -89,7 +90,7 @@ function watchSignal(hexo: Context) {
     hexo.unwatch();
 
     hexo.exit().then(() => {
-      // eslint-disable-next-line no-process-exit
+      // eslint-disable-next-line n/no-process-exit
       process.exit();
     });
   });

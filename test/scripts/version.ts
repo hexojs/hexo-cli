@@ -8,7 +8,7 @@ import rewire from 'rewire';
 import { spawn } from 'hexo-util';
 chai.should();
 
-function getConsoleLog({ args }) {
+function getConsoleLog({ args }: { args: any[] }) {
   return args.map(arr => format(...arr)).join('\n');
 }
 

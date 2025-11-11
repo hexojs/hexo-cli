@@ -35,7 +35,7 @@ async function initConsole(this: Context, args: InitArgs) {
       await spawn('git', ['clone', '--recurse-submodules', '--depth=1', '--quiet', GIT_REPO_URL, target], {
         stdio: 'inherit'
       });
-    } catch (err) {
+    } catch {
       log.warn('git clone failed. Copying data instead');
       await copyAsset(target);
     }
@@ -85,7 +85,7 @@ async function initConsole(this: Context, args: InitArgs) {
       });
     }
     log.info('Start blogging with Hexo!');
-  } catch (err) {
+  } catch {
     log.warn(`Failed to install dependencies. Please run 'npm install' in "${target}" folder.`);
   }
 }

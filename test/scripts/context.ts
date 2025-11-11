@@ -26,7 +26,7 @@ describe('context', () => {
       try {
         await hexo.call('wtf');
         should.fail();
-      } catch (err) {
+      } catch (err: any) {
         err.should.have.property('message', 'Console `wtf` has not been registered yet!');
       }
     });
@@ -46,7 +46,7 @@ describe('context', () => {
     });
 
     it('with callback but no args', done => {
-      hexo.call('test', err => {
+      hexo.call('test', (err: any) => {
         if (err) return done(err);
 
         spy.calledOnce.should.be.true;
@@ -57,7 +57,7 @@ describe('context', () => {
   });
 
   describe('exit', () => {
-    let hexo, fatal;
+    let hexo: Context, fatal: any;
 
     beforeEach(() => {
       hexo = new Context();

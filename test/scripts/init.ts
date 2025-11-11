@@ -18,13 +18,13 @@ describe('init', () => {
   async function rmDir(path: string) {
     try {
       await rmdir(path);
-    } catch (err) {
+    } catch (err: any) {
       if (err && err.code === 'ENOENT') return;
       throw err;
     }
   }
 
-  function pipeStream(rs, ws) {
+  function pipeStream(rs: ReturnType<typeof createReadStream>, ws: ReturnType<typeof createSha1Hash>) {
     return new Promise((resolve, reject) => {
       rs.pipe(ws)
         .on('error', reject)
@@ -32,7 +32,7 @@ describe('init', () => {
     });
   }
 
-  async function compareFile(a, b) {
+  async function compareFile(a: string, b: string) {
     const streamA = createSha1Hash();
     const streamB = createSha1Hash();
 
@@ -44,7 +44,7 @@ describe('init', () => {
     return streamA.read().equals(streamB.read());
   }
 
-  async function check(path) {
+  async function check(path: string) {
     for (const item of assets) {
       const result = await compareFile(
         join(assetDir, item),
@@ -56,7 +56,7 @@ describe('init', () => {
 
   }
 
-  function withoutSpawn(fn) {
+  function withoutSpawn(fn: () => Promise<void>) {
     return initModule.__with__({
       'spawn_1': () => Promise.reject(new Error('spawn is not available'))
     })(fn);
