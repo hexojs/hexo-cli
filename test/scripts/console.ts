@@ -9,7 +9,7 @@ describe('console', () => {
     try {
       // @ts-expect-error
       consoleExtend.register();
-    } catch (err) {
+    } catch (err: any) {
       err.should.have.property('message', 'name is required');
     }
   });
@@ -19,7 +19,7 @@ describe('console', () => {
     try {
       // @ts-expect-error
       consoleExtend.register('test', 'fn');
-    } catch (err) {
+    } catch (err: any) {
       err.should.have.property('message', 'fn must be a function');
     }
   });
@@ -29,7 +29,7 @@ describe('console', () => {
     try {
       // @ts-expect-error
       consoleExtend.register('test', 'desc', 'fn');
-    } catch (err) {
+    } catch (err: any) {
       err.should.have.property('message', 'fn must be a function');
     }
   });
