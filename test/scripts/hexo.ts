@@ -2,6 +2,7 @@ import chai from 'chai';
 import sinon from 'sinon';
 import rewire from 'rewire';
 import ConsoleExtend from '../../lib/extend/console';
+import type Context from '../../lib/context';
 chai.should();
 
 require('chai').should();
@@ -14,7 +15,7 @@ describe('hexo', () => {
     const hexo = rewire('../../dist/hexo');
     return hexo.__with__({
       console_1: {
-        default: ctx => {
+        default: (ctx: Context) => {
           ctx.extend.console.register('help', spy);
         }
       }
@@ -30,7 +31,7 @@ describe('hexo', () => {
     const hexo = rewire('../../dist/hexo');
     return hexo.__with__({
       console_1: {
-        default: ctx => {
+        default: (ctx: Context) => {
           ctx.extend.console.register('test', spy);
         }
       }
@@ -46,7 +47,7 @@ describe('hexo', () => {
     const hexo = rewire('../../dist/hexo');
     return hexo.__with__({
       console_1: {
-        default: ctx => {
+        default: (ctx: Context) => {
           ctx.extend.console.register('help', spy);
         }
       }
@@ -58,11 +59,11 @@ describe('hexo', () => {
   });
 
   it('path - number (issue hexo#4334)', async () => {
-    let args;
+    let args: Record<string, string>;
     const hexo = rewire('../../dist/hexo');
     return hexo.__with__({
       find_pkg_1: {
-        default: (_cwd, _args) => {
+        default: (_cwd: string, _args: { cwd?: string }) => {
           args = _args;
           return Promise.resolve();
         }
@@ -77,11 +78,11 @@ describe('hexo', () => {
   });
 
   it('p - number (issue hexo#4334)', async () => {
-    let args;
+    let args: Record<string, string>;
     const hexo = rewire('../../dist/hexo');
     return hexo.__with__({
       find_pkg_1: {
-        default: (_cwd, _args) => {
+        default: (_cwd: string, _args: { cwd?: string }) => {
           args = _args;
           return Promise.resolve();
         }
@@ -96,11 +97,11 @@ describe('hexo', () => {
   });
 
   it('slug - number (issue hexo#4334)', async () => {
-    let args;
+    let args: Record<string, string>;
     const hexo = rewire('../../dist/hexo');
     return hexo.__with__({
       find_pkg_1: {
-        default: (_cwd, _args) => {
+        default: (_cwd: string, _args: { cwd?: string }) => {
           args = _args;
           return Promise.resolve();
         }
@@ -115,11 +116,11 @@ describe('hexo', () => {
   });
 
   it('s - number (issue hexo#4334)', async () => {
-    let args;
+    let args: Record<string, string>;
     const hexo = rewire('../../dist/hexo');
     return hexo.__with__({
       find_pkg_1: {
-        default: (_cwd, _args) => {
+        default: (_cwd: string, _args: { cwd?: string }) => {
           args = _args;
           return Promise.resolve();
         }
