@@ -17,7 +17,7 @@
     "prepublishOnly": "npm install && npm run clean && npm run build",
     "build": "tsc -b",
     "clean": "tsc -b --clean",
-    "eslint": "eslint .",
+    "eslint": "eslint lib test",
     "pretest": "npm run clean && npm run build",
     "test": "mocha test/**/*.ts --require ts-node/register",
     "test-cov": "nyc --reporter=lcovonly npm test",
@@ -45,9 +45,9 @@
     "abbrev": "^2.0.0",
     "bluebird": "^3.7.2",
     "command-exists": "^1.2.9",
-    "hexo-fs": "^4.1.1",
+    "hexo-fs": "^5.0.1",
     "hexo-log": "^4.0.1",
-    "hexo-util": "^3.3.0",
+    "hexo-util": "^4.0.0",
     "minimist": "^1.2.5",
     "picocolors": "^1.0.0",
     "resolve": "^1.20.0",
@@ -64,17 +64,17 @@
     "@types/rewire": "^2.5.30",
     "@types/sinon": "^17.0.3",
     "chai": "^4.3.4",
-    "eslint": "^8.2.0",
-    "eslint-config-hexo": "^5.0.0",
-    "hexo-renderer-marked": "^6.0.0",
-    "mocha": "^10.0.0",
+    "eslint": "^9.39.1",
+    "eslint-config-hexo": "^6.0.0",
+    "hexo-renderer-marked": "^7.0.1",
+    "mocha": "^11.7.5",
     "nyc": "^15.1.0",
-    "rewire": "^6.0.0",
+    "rewire": "^9.0.1",
     "sinon": "^17.0.1",
     "ts-node": "^10.9.1",
-    "typescript": "^5.0.0"
+    "typescript": "^5.9.3"
   },
   "engines": {
-    "node": ">=14"
+    "node": ">=20"
   }
 }
