@@ -20,7 +20,7 @@ jobs:
         node-version: ["20", "22", "24"]
       fail-fast: false
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Setup Node.js ${{ matrix.node-version }} and Cache
         uses: actions/setup-node@v4
         with:
@@ -38,7 +38,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Setup Node.js ${{env.default_node_version}} and Cache
         uses: actions/setup-node@v4
         with:
@@ -59,7 +59,7 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Setup Node.js ${{env.default_node_version}} and Cache
         uses: actions/setup-node@v4
         with:
@@ -76,7 +76,7 @@ jobs:
     name: Lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Setup Node.js ${{env.default_node_version}} and Cache
         uses: actions/setup-node@v4
         with:
