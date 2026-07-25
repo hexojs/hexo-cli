@@ -1,4 +1,4 @@
-import { copyFile, existsSync, mkdirs, rmdir } from 'hexo-fs';
+import { copyFile, existsSync, mkdirs, rmdir, unlink } from 'hexo-fs';
 import spawn from 'hexo-util/dist/spawn';
 import { basename, join } from 'path';
 import { sync as commandExistsSync } from 'command-exists';
@@ -23,12 +23,17 @@ interface RegistryResponse {
 async function themeConsole(this: Context, args: ThemeArgs) {
   const [command, themeName, ...extraArgs] = args._;
 
-  if (command !== 'install' || !themeName || extraArgs.length) {
-    throw new Error('Usage: hexo theme install <theme-name>');
+  if ((command !== 'install' && command !== 'uninstall') || !themeName || extraArgs.length) {
+    throw new Error('Usage: hexo theme <install|uninstall> <theme-name>');
   }
 
   if (themeName !== basename(themeName) || themeName === '.' || themeName === '..') {
     throw new Error('Theme name must not contain a path.');
+  }
+
+  if (command === 'uninstall') {
+    await uninstallTheme(this, themeName);
+    return;
   }
 
   const target = join(this.base_dir, 'themes', themeName);
@@ -134,6 +139,22 @@ async function copyThemeConfig(ctx: Context, themeName: string, target: string) 
 
   await copyFile(source, destination);
   ctx.log.info('Theme config copied to %s', destination);
+}
+
+async function uninstallTheme(ctx: Context, themeName: string) {
+  const target = join(ctx.base_dir, 'themes', themeName);
+  const config = join(ctx.base_dir, `_config.${themeName}.yml`);
+  const hasTheme = existsSync(target);
+  const hasConfig = existsSync(config);
+
+  if (!hasTheme && !hasConfig) {
+    throw new Error(`Theme "${themeName}" is not installed.`);
+  }
+
+  if (hasTheme) await rmdir(target);
+  if (hasConfig) await unlink(config);
+
+  ctx.log.info('Theme %s uninstalled.', themeName);
 }
 
 function findPackageManager(baseDir: string) {

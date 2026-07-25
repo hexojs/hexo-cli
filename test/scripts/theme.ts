@@ -58,7 +58,7 @@ describe('theme', () => {
     console(hexo);
 
     const command = hexo.extend.console.get('theme');
-    command?.options?.usage.should.eql('install <theme-name>');
+    command?.options?.usage.should.eql('<install|uninstall> <theme-name>');
   });
 
   it('installs an official theme into the site themes directory', async () => {
@@ -214,6 +214,37 @@ describe('theme', () => {
     config.should.eql('color: red\n');
   });
 
+  it('uninstalls the theme and its root config without accessing the registry', async () => {
+    const target = join(baseDir, 'themes', 'example');
+    const configPath = join(baseDir, '_config.example.yml');
+    await mkdirs(target);
+    await writeFile(join(target, 'layout.ejs'), '');
+    await writeFile(configPath, 'color: blue\n');
+    const fetchMock = sinon.stub();
+    const spawnMock = sinon.stub();
+
+    await withMocks(fetchMock, spawnMock, async () => {
+      await theme({_: ['uninstall', 'example']});
+    });
+
+    existsSync(target).should.be.false;
+    existsSync(configPath).should.be.false;
+    fetchMock.notCalled.should.be.true;
+    spawnMock.notCalled.should.be.true;
+  });
+
+  it('reports a theme that is not installed', async () => {
+    const fetchMock = sinon.stub();
+    const spawnMock = sinon.stub();
+
+    await withMocks(fetchMock, spawnMock, async () => {
+      await expectError(theme({_: ['uninstall', 'missing']}), 'is not installed');
+    });
+
+    fetchMock.notCalled.should.be.true;
+    spawnMock.notCalled.should.be.true;
+  });
+
   it('selects package managers from lockfiles', async () => {
     const findPackageManager = themeModule.__get__('findPackageManager');
     findPackageManager(baseDir).should.eql('npm');
@@ -231,8 +262,9 @@ describe('theme', () => {
     const fetchMock = sinon.stub();
 
     await withMocks(fetchMock, spawnMock, async () => {
-      await expectError(theme({_: ['install']}), 'Usage: hexo theme install');
+      await expectError(theme({_: ['install']}), 'Usage: hexo theme <install|uninstall>');
       await expectError(theme({_: ['install', '../example']}), 'must not contain a path');
+      await expectError(theme({_: ['uninstall', '../example']}), 'must not contain a path');
     });
   });
 });

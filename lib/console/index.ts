@@ -22,10 +22,11 @@ export = function(ctx: Context) {
   }, initConsole);
 
   console.register('theme', 'Manage themes.', {
-    desc: 'Install themes from the official Hexo theme registry.',
-    usage: 'install <theme-name>',
+    desc: 'Install and uninstall Hexo themes.',
+    usage: '<install|uninstall> <theme-name>',
     commands: [
-      {name: 'install <theme-name>', desc: 'Install an official Hexo theme.'}
+      {name: 'install <theme-name>', desc: 'Install an official Hexo theme.'},
+      {name: 'uninstall <theme-name>', desc: 'Uninstall a Hexo theme.'}
     ]
   }, themeConsole);
 
