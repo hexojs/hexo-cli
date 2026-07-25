@@ -11,6 +11,7 @@ import { camelCaseKeys } from 'hexo-util';
 import registerConsole from './console';
 import helpConsole from './console/help';
 import initConsole from './console/init';
+import themeConsole from './console/theme';
 import versionConsole from './console/version';
 
 class HexoNotFoundError extends Error {}
@@ -70,6 +71,7 @@ function entry(cwd = process.cwd(), args) {
 entry.console = {
   init: initConsole,
   help: helpConsole,
+  theme: themeConsole,
   version: versionConsole
 };
 
