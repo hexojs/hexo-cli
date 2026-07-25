@@ -1,6 +1,7 @@
 import type Context from '../context';
 import helpConsole from './help';
 import initConsole from './init';
+import themeConsole from './theme';
 import versionConsole from './version';
 
 export = function(ctx: Context) {
@@ -19,6 +20,15 @@ export = function(ctx: Context) {
       {name: '--no-install', desc: 'Skip npm install'}
     ]
   }, initConsole);
+
+  console.register('theme', 'Manage themes.', {
+    desc: 'Install and uninstall Hexo themes.',
+    usage: '<install|uninstall> <theme-name>',
+    commands: [
+      {name: 'install <theme-name>', desc: 'Install an official Hexo theme.'},
+      {name: 'uninstall <theme-name>', desc: 'Uninstall a Hexo theme.'}
+    ]
+  }, themeConsole);
 
   console.register('version', 'Display version information.', {}, versionConsole);
 };
